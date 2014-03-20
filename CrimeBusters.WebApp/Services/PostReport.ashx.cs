@@ -26,12 +26,11 @@ namespace CrimeBusters.WebApp.Services
                 String latitude = request.QueryString["latitude"];
                 String longitude = request.QueryString["longitude"];
                 String resourceUrl = request.QueryString["resourceUrl"];
-                DateTime timeStamp = Convert.ToDateTime(request.QueryString["timeStamp"]);
                 String userName = request.QueryString["userName"];
 
                 User user = new User(userName);
-                Report report = new Report((ReportTypeEnum)reportTypeId, message, latitude,
-                    longitude, resourceUrl, timeStamp, user);
+                Report report = new Report((ReportTypeEnum)reportTypeId, message, 
+                    latitude, longitude, resourceUrl, user);
 
                 jsonString = serializer.Serialize(new { result = report.CreateReport() });
             }

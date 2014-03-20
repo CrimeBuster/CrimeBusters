@@ -51,15 +51,14 @@ namespace CrimeBusters.WebApp.Models.Report
             this.ReportId = reportId;
         }
         public Report(ReportTypeEnum reportTypeId, String message, 
-            String latitude, String longitude, String resourceUrl, 
-            DateTime timeStamp, IUser user) 
+            String latitude, String longitude, String resourceUrl,
+            IUser user) 
         {
             this.ReportTypeId = reportTypeId;
             this.Message = message;
             this.Latitude = latitude;
             this.Longitude = longitude;
             this.ResourceUrl = resourceUrl;
-            this.TimeStamp = timeStamp;
             this.User = user;
         }
 
@@ -73,7 +72,7 @@ namespace CrimeBusters.WebApp.Models.Report
             {
                 ReportsDAO.CreateReport(this.ReportTypeId, this.Message, 
                     this.Latitude, this.Longitude, this.ResourceUrl, 
-                    this.TimeStamp, this.User.UserName);
+                    this.User.UserName);
                 return "success";
             }
             catch (Exception ex)

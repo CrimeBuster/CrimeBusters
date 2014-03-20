@@ -14,7 +14,7 @@ namespace CrimeBusters.WebApp.Models.DAL
     public class ReportsDAO
     {
         public static void CreateReport(ReportTypeEnum reportTypeId, String message, 
-            String latitude, String longitude, string resourceUrl, DateTime timeStamp, 
+            String latitude, String longitude, string resourceUrl, 
             String userName) 
         { 
             using (SqlConnection connection = ConnectionManager.GetConnection()) 
@@ -26,7 +26,6 @@ namespace CrimeBusters.WebApp.Models.DAL
                 command.Parameters.AddWithValue("@Latitude", latitude);
                 command.Parameters.AddWithValue("@Longitude", longitude);
                 command.Parameters.AddWithValue("@ResourceUrl", resourceUrl);
-                command.Parameters.AddWithValue("@TimeStamp", timeStamp);
                 command.Parameters.AddWithValue("@UserName", userName);
 
                 command.ExecuteNonQuery();
