@@ -65,6 +65,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\100270270402.sdx" />
+    <Content Include="Content\images\ilogo_horz_bold.gif" />
     <Content Include="Content\index.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -128,7 +130,25 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="Content\themes\illinoisTheme\images\animated-overlay.gif" />
+    <Content Include="Content\themes\illinoisTheme\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\themes\illinoisTheme\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\themes\illinoisTheme\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\themes\illinoisTheme\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\themes\illinoisTheme\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\themes\illinoisTheme\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\illinoisTheme\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\themes\illinoisTheme\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\themes\illinoisTheme\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\themes\illinoisTheme\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\illinoisTheme\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\themes\illinoisTheme\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\themes\illinoisTheme\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\themes\illinoisTheme\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\illinoisTheme\jquery-ui-1.10.4.custom.css" />
+    <Content Include="Content\themes\illinoisTheme\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="Index.html" />
+    <Content Include="Login.html" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\Arvixe.pubxml" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
@@ -138,6 +158,7 @@
     <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
+    <Content Include="Scripts\login.js" />
     <Content Include="Services\Index.asmx" />
     <Content Include="Web.config" />
     <Content Include="Services\PostReport.ashx" />
