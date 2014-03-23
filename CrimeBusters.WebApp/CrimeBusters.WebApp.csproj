@@ -151,13 +151,11 @@
     <Content Include="Login.html" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\Arvixe.pubxml" />
-    <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="ReportsDump.aspx" />
     <Content Include="Scripts\index.js" />
-    <Content Include="Scripts\jquery-1.6.4.js" />
-    <Content Include="Scripts\jquery-1.6.4.min.js" />
-    <Content Include="Scripts\jquery-ui-1.10.4.js" />
-    <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
+    <Content Include="Scripts\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Services\Index.asmx" />
     <Content Include="Web.config" />
