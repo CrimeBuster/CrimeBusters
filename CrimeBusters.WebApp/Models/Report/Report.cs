@@ -35,12 +35,12 @@ namespace CrimeBusters.WebApp.Models.Report
         public String Latitude { get; set; }
         public String Longitude { get; set; }
         public String ResourceUrl { get; set; }
-        public DateTime TimeStamp { get; set; }
+        public DateTime DateReported { get; set; }
         public string TimeStampString
         {
             get
             {
-                return Convert.ToString(this.TimeStamp,
+                return Convert.ToString(this.DateReported,
                             System.Globalization.CultureInfo.InvariantCulture);
             }
         }
@@ -52,13 +52,14 @@ namespace CrimeBusters.WebApp.Models.Report
         }
         public Report(ReportTypeEnum reportTypeId, String message, 
             String latitude, String longitude, String resourceUrl,
-            IUser user) 
+            DateTime dateReported, IUser user) 
         {
             this.ReportTypeId = reportTypeId;
             this.Message = message;
             this.Latitude = latitude;
             this.Longitude = longitude;
             this.ResourceUrl = resourceUrl;
+            this.DateReported = dateReported;
             this.User = user;
         }
 
@@ -72,7 +73,7 @@ namespace CrimeBusters.WebApp.Models.Report
             {
                 ReportsDAO.CreateReport(this.ReportTypeId, this.Message, 
                     this.Latitude, this.Longitude, this.ResourceUrl, 
-                    this.User.UserName);
+                    this.DateReported, this.User.UserName);
                 return "success";
             }
             catch (Exception ex)
@@ -118,7 +119,7 @@ namespace CrimeBusters.WebApp.Models.Report
                         Latitude = reader[oLatitude].ToString(),
                         Longitude = reader[oLongitude].ToString(),
                         ResourceUrl = reader[oResourceUrl].ToString(),
-                        TimeStamp = Convert.ToDateTime(reader[oTimeStamp]),
+                        DateReported = Convert.ToDateTime(reader[oTimeStamp]),
                         User = new User 
                         {
                             UserName = reader[oUserName].ToString(),
