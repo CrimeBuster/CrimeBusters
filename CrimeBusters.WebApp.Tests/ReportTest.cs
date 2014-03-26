@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Web;
+using CrimeBusters.WebApp.Models.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CrimeBusters.WebApp.Models.Report;
 using CrimeBusters.WebApp.Models.Users;
@@ -16,14 +18,13 @@ namespace CrimeBusters.WebApp.Tests
         public void Initialize()
         {
             _testReport = new Report(
-               ReportTypeEnum.ALERT,
+               ReportTypeEnum.HighPriority,
                "Test message",
                "40.104669",
                "-88.242254",
-               "",
                DateTime.UtcNow,
                new User("test.user"));
-            _testReport.CreateReport();
+            _testReport.CreateReport(null, null);
         }
 
         [TestCleanup]
@@ -34,19 +35,54 @@ namespace CrimeBusters.WebApp.Tests
         }
 
         [TestMethod]
-        public void TestCreateReport()
+        public void TestCreateReportWithEmptyMessage()
         {
             Report report = new Report(
-                ReportTypeEnum.ALERT, 
+                ReportTypeEnum.HighPriority,
+                "",
+                "40.104669",
+                "-88.242254",
+                DateTime.UtcNow,
+                new User("test.user"));
+            string result = report.CreateReport(null, null);
+
+            Assert.IsTrue(result.Equals("success"), result);
+        }
+
+        [TestMethod()]
+        public void TestCreateReportWithNullMessage()
+        {
+            Report report = new Report(
+                ReportTypeEnum.HighPriority,
+                null,
+                "40.104669",
+                "-88.242254",
+                DateTime.UtcNow,
+                new User("test.user"));
+            string result = report.CreateReport(null, null);
+
+            Assert.IsTrue(result.Equals("success"), result);
+        }
+
+        [TestMethod]
+        public void TestCreateReportWithNoFile()
+        {
+            Report report = new Report(
+                ReportTypeEnum.HighPriority, 
                 "Test message", 
                 "40.104669", 
                 "-88.242254", 
-                "",
                 DateTime.UtcNow,
                 new User("test.user"));
-            string result = report.CreateReport();
+            string result = report.CreateReport(null, null);
        
-            Assert.IsTrue(result.Equals("success"), "The method should return success.");
+            Assert.IsTrue(result.Equals("success"), result);
+        }
+
+        [TestMethod]
+        public void TestCreateReportWithFile()
+        {
+            Assert.Fail();
         }
 
         [TestMethod]

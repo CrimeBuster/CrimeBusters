@@ -38,11 +38,8 @@ namespace CrimeBusters.WebApp.Tests
                 Email = "test2@crimbusters.com"
             };
 
-            Login login = new Login(newUser)
-            {
-                ContentLocator = new TestContentLocator()
-            };
-            MembershipCreateStatus createStatus = login.CreateUser();
+            Login login = new Login(newUser);
+            MembershipCreateStatus createStatus = login.CreateUser(new TestContentLocator());
             Assert.AreEqual(MembershipCreateStatus.Success, createStatus,
                 "User creation failure.");
         }

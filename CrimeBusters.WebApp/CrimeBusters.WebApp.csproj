@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\documents\VerifyAccount.html" />
+    <Content Include="Content\uploads\testImage.JPG" />
     <Content Include="Services\CreateUser.ashx" />
     <Content Include="Services\ValidateUser.ashx" />
     <Content Include="Services\UpdateProfile.ashx" />
@@ -100,6 +101,7 @@
     <Content Include="Scripts\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Services\Index.asmx" />
+    <Content Include="TestPage.aspx" />
     <Content Include="VerifyAccount.aspx" />
     <Content Include="Web.config" />
     <Content Include="Services\PostReport.ashx" />
@@ -108,6 +110,8 @@
   <ItemGroup>
     <Compile Include="Models\DAL\ConnectionManager.cs" />
     <Compile Include="Models\DAL\LoginDAO.cs" />
+    <Compile Include="Models\Documents\IDocument.cs" />
+    <Compile Include="Models\Documents\Photo.cs" />
     <Compile Include="Models\Login\Login.cs" />
     <Compile Include="Models\Users\IUser.cs" />
     <Compile Include="Models\DAL\ReportsDAO.cs" />
@@ -143,6 +147,13 @@
     </Compile>
     <Compile Include="Services\ValidateUser.ashx.cs">
       <DependentUpon>ValidateUser.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="TestPage.aspx.cs">
+      <DependentUpon>TestPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestPage.aspx.designer.cs">
+      <DependentUpon>TestPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="VerifyAccount.aspx.cs">
       <DependentUpon>VerifyAccount.aspx</DependentUpon>

@@ -3,6 +3,21 @@ var userCoords = [];
 $(function () {
 	var map = $.getMap();
 	$.plotUsersOnMap(map);
+
+	$(document).on("click", "a[data-pictureurl]", function (e) {
+	    e.preventDefault();
+	    
+	    var pictureUrl = $(this).attr("data-pictureurl");
+	    $("img", "#uploadedImageWindow").attr("src", pictureUrl.substring(2));
+
+	    $("#uploadedImageWindow").dialog({
+	        title: "Uploaded Image",
+	        show: "fade",
+	        hide: "clip",
+	        modal: true,
+	        width: "335px"
+	    });
+	});
 });
 
 (function($) {
@@ -77,6 +92,11 @@ $(function () {
                                         "</ul>" +
                                   "</div>";
 
+	                if (this.ResourceUrl != "") {
+	                    content += "<a data-pictureurl='" + this.ResourceUrl
+                            + "' href='#'>View Uploaded Picture</a>";
+	                }
+
 	                $.attachInfo(map, content, marker);
 	            });
 	        },
@@ -93,8 +113,9 @@ $(function () {
 	$.attachInfo = function (map, content, marker) {
 	    google.maps.event.addListener(marker, "click", function (e) {
 	        infoWindow.setContent(content);
-			infoWindow.open(map, marker);
-		});
+	        infoWindow.open(map, marker);
+	        marker.setAnimation(null);
+	    });
 	};
 })(jQuery);
 

@@ -18,7 +18,6 @@ namespace CrimeBusters.WebApp.Models.Login
     public class Login
     {
         public IUser User { get; set; }
-        public IContentLocator ContentLocator { get; set; }
 
         public Login() { }
 
@@ -32,7 +31,7 @@ namespace CrimeBusters.WebApp.Models.Login
         /// </summary>
         /// <param name="contentLocator">Whether TestContentLocator or WebContentLocator</param>
         /// <returns></returns>
-        public MembershipCreateStatus CreateUser()
+        public MembershipCreateStatus CreateUser(IContentLocator contentLocator)
         {
             MembershipCreateStatus createStatus;
 
@@ -50,7 +49,7 @@ namespace CrimeBusters.WebApp.Models.Login
                 try
                 {
                     CreateUserDetails();
-                    SendVerificationEmail(newUser.ProviderUserKey.ToString());
+                    SendVerificationEmail(newUser.ProviderUserKey.ToString(), contentLocator);
                 }
                 catch (Exception)
                 {
@@ -63,9 +62,9 @@ namespace CrimeBusters.WebApp.Models.Login
         /// <summary>
         /// Sends an email to the user with verification link.
         /// </summary>
-        private void SendVerificationEmail(String userId)
+        private void SendVerificationEmail(String userId, IContentLocator contentLocator)
         {
-            String filePath = this.ContentLocator.GetPath("~/Content/documents/VerifyAccount.html");
+            String filePath = contentLocator.GetPath("~/Content/documents/VerifyAccount.html");
 
             string emailContent =
                 File.ReadAllText(filePath)

@@ -1,10 +1,13 @@
-﻿using CrimeBusters.WebApp.Models.DAL;
+﻿using System.IO;
+using CrimeBusters.WebApp.Models.DAL;
+using CrimeBusters.WebApp.Models.Documents;
 using CrimeBusters.WebApp.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using CrimeBusters.WebApp.Models.Util;
 
 namespace CrimeBusters.WebApp.Models.Report
 {
@@ -45,30 +48,47 @@ namespace CrimeBusters.WebApp.Models.Report
             }
         }
         public IUser User { get; set; }
+        public IDocument Photo { get; set; }
+
         public Report() { }
         public Report(int reportId) 
         {
             this.ReportId = reportId;
         }
         public Report(ReportTypeEnum reportTypeId, String message, 
-            String latitude, String longitude, String resourceUrl,
+            String latitude, String longitude,
             DateTime dateReported, IUser user) 
         {
             this.ReportTypeId = reportTypeId;
             this.Message = message;
             this.Latitude = latitude;
             this.Longitude = longitude;
-            this.ResourceUrl = resourceUrl;
             this.DateReported = dateReported;
             this.User = user;
+            this.ResourceUrl = "";
         }
 
         /// <summary>
         /// Creates a report that will be saved to the database.
         /// </summary>
         /// <returns>success for successful insert, else will return the error message.</returns>
-        public string CreateReport() 
+        public string CreateReport(HttpPostedFile photo, IContentLocator contentLocator) 
         {
+            if (photo != null)
+            {
+                // Workaround for local showing full path whereas when deployed to the live site, 
+                // only the actual filename exists.
+                FileInfo fileInfo = new FileInfo(photo.FileName);
+
+                this.ResourceUrl = "~/Content/uploads/" + DateTime.Now.Ticks + "_" + fileInfo.Name;
+                this.Photo = new Photo
+                {
+                    Url = ResourceUrl,
+                    File = photo
+                };
+                this.Photo.Save(contentLocator);
+            }
+
             try
             {
                 ReportsDAO.CreateReport(this.ReportTypeId, this.Message, 

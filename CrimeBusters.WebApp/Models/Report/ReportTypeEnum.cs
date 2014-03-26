@@ -10,7 +10,7 @@ namespace CrimeBusters.WebApp.Models.Report
     /// </summary>
     public enum ReportTypeEnum
     {
-        ALERT = 1,
-        REPORT = 2
+        HighPriority = 1,
+        LowPriority = 2
     }
 }

@@ -29,9 +29,8 @@ namespace CrimeBusters.WebApp.Services
                 LastName = request.QueryString["lastName"],
                 Email = request.QueryString["email"]
             });
-            login.ContentLocator = new WebContentLocator();
 
-            MembershipCreateStatus createStatus = login.CreateUser();
+            MembershipCreateStatus createStatus = login.CreateUser(new WebContentLocator());
             jsonString = serializer.Serialize(new { result = createStatus.ToString() });
 
             response.Write(jsonString);
