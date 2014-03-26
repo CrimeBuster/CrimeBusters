@@ -57,6 +57,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\documents\VerifyAccount.html" />
+    <Content Include="Services\CreateUser.ashx" />
+    <Content Include="Services\ValidateUser.ashx" />
+    <Content Include="Services\UpdateProfile.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -68,68 +72,6 @@
     <Content Include="Content\images\100270270402.sdx" />
     <Content Include="Content\images\ilogo_horz_bold.gif" />
     <Content Include="Content\index.css" />
-    <Content Include="Content\themes\base\images\animated-overlay.gif" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\jquery-ui.css" />
-    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
-    <Content Include="Content\themes\base\jquery.ui.all.css" />
-    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
-    <Content Include="Content\themes\base\jquery.ui.base.css" />
-    <Content Include="Content\themes\base\jquery.ui.button.css" />
-    <Content Include="Content\themes\base\jquery.ui.core.css" />
-    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
-    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
-    <Content Include="Content\themes\base\jquery.ui.menu.css" />
-    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
-    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
-    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
-    <Content Include="Content\themes\base\jquery.ui.slider.css" />
-    <Content Include="Content\themes\base\jquery.ui.spinner.css" />
-    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
-    <Content Include="Content\themes\base\jquery.ui.theme.css" />
-    <Content Include="Content\themes\base\jquery.ui.tooltip.css" />
-    <Content Include="Content\themes\base\minified\images\animated-overlay.gif" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.menu.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.spinner.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Content\themes\illinoisTheme\images\animated-overlay.gif" />
     <Content Include="Content\themes\illinoisTheme\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\themes\illinoisTheme\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
@@ -158,18 +100,23 @@
     <Content Include="Scripts\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Services\Index.asmx" />
+    <Content Include="VerifyAccount.aspx" />
     <Content Include="Web.config" />
     <Content Include="Services\PostReport.ashx" />
     <Content Include="Services\GetUserInfo.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\DAL\ConnectionManager.cs" />
+    <Compile Include="Models\DAL\LoginDAO.cs" />
+    <Compile Include="Models\Login\Login.cs" />
     <Compile Include="Models\Users\IUser.cs" />
     <Compile Include="Models\DAL\ReportsDAO.cs" />
     <Compile Include="Models\DAL\UsersDAO.cs" />
     <Compile Include="Models\Report\Report.cs" />
     <Compile Include="Models\Report\ReportTypeEnum.cs" />
     <Compile Include="Models\Users\User.cs" />
+    <Compile Include="Models\Util\Email.cs" />
+    <Compile Include="Models\Util\ContentLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportsDump.aspx.cs">
       <DependentUpon>ReportsDump.aspx</DependentUpon>
@@ -177,6 +124,9 @@
     </Compile>
     <Compile Include="ReportsDump.aspx.designer.cs">
       <DependentUpon>ReportsDump.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\CreateUser.ashx.cs">
+      <DependentUpon>CreateUser.ashx</DependentUpon>
     </Compile>
     <Compile Include="Services\GetUserInfo.ashx.cs">
       <DependentUpon>GetUserInfo.ashx</DependentUpon>
@@ -187,6 +137,19 @@
     </Compile>
     <Compile Include="Services\PostReport.ashx.cs">
       <DependentUpon>PostReport.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\UpdateProfile.ashx.cs">
+      <DependentUpon>UpdateProfile.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ValidateUser.ashx.cs">
+      <DependentUpon>ValidateUser.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="VerifyAccount.aspx.cs">
+      <DependentUpon>VerifyAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VerifyAccount.aspx.designer.cs">
+      <DependentUpon>VerifyAccount.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />

@@ -11,6 +11,7 @@ namespace CrimeBusters.WebApp.Models.Users
     public interface IUser
     {
         String UserName { get; set; }
+        String Password { get; set; }
         String FirstName { get; set; }
         String LastName { get; set; }
         String Gender { get; set; }

@@ -62,7 +62,7 @@ $(function () {
 	                var offset = -((new Date()).getTimezoneOffset() / 60);
 	                tst.setHours(tst.getHours() + offset);
 
-	                var content = "<div>" + this.User.FirstName + " " + this.User.LastName + " needs help!" +
+	                var content = "<div id='markerPopup'>" + this.User.FirstName + " " + this.User.LastName + " needs help!" +
                                         "<h3>User Details</h3>" +
                                         "<ul>" +
                                             "<li>Report Type: " + this.ReportType + "</li>" +

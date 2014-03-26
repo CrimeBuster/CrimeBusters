@@ -13,6 +13,7 @@ namespace CrimeBusters.WebApp.Models.Users
     public class User : IUser
     {
         public String UserName { get; set; }
+        public String Password { get; set; }
         public String FirstName { get; set; }
         public String LastName { get; set; }
         public String Gender { get; set; }
@@ -62,6 +63,23 @@ namespace CrimeBusters.WebApp.Models.Users
                 reader.Close();
             }
             return user;
+        }
+
+        /// <summary>
+        /// Updates the user information with the new information 
+        /// that will be provided.
+        /// </summary>
+        public void UpdateProfile()
+        {
+            if (this.Gender.ToUpper() != "M" 
+                && this.Gender.ToUpper() != "F")
+            {
+                throw  new Exception("Invalid gender.");
+            }
+
+            UsersDAO.UpdateUserInformation(this.FirstName, 
+                this.LastName, this.Gender, this.PhoneNumber, 
+                this.Address, this.ZipCode, this.UserName);
         }
     }
 }

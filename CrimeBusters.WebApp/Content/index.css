@@ -65,3 +65,7 @@ body {
 	height: 667px;
 	border-top: 1px outset black;
 }
+
+#markerPopup {
+    color: black;
+}
