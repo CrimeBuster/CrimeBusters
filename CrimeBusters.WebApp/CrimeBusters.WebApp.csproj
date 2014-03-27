@@ -59,7 +59,10 @@
   <ItemGroup>
     <Content Include="Content\documents\VerifyAccount.html" />
     <Content Include="Content\uploads\testImage.JPG" />
+    <Content Include="Index.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="Services\CreateUser.ashx" />
+    <Content Include="Services\Login.asmx" />
     <Content Include="Services\ValidateUser.ashx" />
     <Content Include="Services\UpdateProfile.ashx" />
     <None Include="Web.Debug.config">
@@ -90,8 +93,6 @@
     <Content Include="Content\themes\illinoisTheme\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\themes\illinoisTheme\jquery-ui-1.10.4.custom.css" />
     <Content Include="Content\themes\illinoisTheme\jquery-ui-1.10.4.custom.min.css" />
-    <Content Include="Index.html" />
-    <Content Include="Login.html" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\Arvixe.pubxml" />
     <Content Include="ReportsDump.aspx" />
@@ -109,6 +110,20 @@
     <Content Include="Services\GetUserInfo.ashx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Models\DAL\ConnectionManager.cs" />
     <Compile Include="Models\DAL\LoginDAO.cs" />
     <Compile Include="Models\Documents\IDocument.cs" />
@@ -138,6 +153,10 @@
     </Compile>
     <Compile Include="Services\Index.asmx.cs">
       <DependentUpon>Index.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\Login.asmx.cs">
+      <DependentUpon>Login.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Services\PostReport.ashx.cs">

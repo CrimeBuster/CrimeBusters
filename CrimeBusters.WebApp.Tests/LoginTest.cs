@@ -1,6 +1,6 @@
 ﻿using CrimeBusters.WebApp.Models.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CrimeBusters.WebApp.Models.Login;
+using LoginModel = CrimeBusters.WebApp.Models.Login;
 using CrimeBusters.WebApp.Models.Users;
 using CrimeBusters.WebApp.Models.DAL;
 using System.Web.Security;
@@ -38,7 +38,7 @@ namespace CrimeBusters.WebApp.Tests
                 Email = "test2@crimbusters.com"
             };
 
-            Login login = new Login(newUser);
+            LoginModel.Login login = new LoginModel.Login(newUser);
             MembershipCreateStatus createStatus = login.CreateUser(new TestContentLocator());
             Assert.AreEqual(MembershipCreateStatus.Success, createStatus,
                 "User creation failure.");
@@ -52,7 +52,7 @@ namespace CrimeBusters.WebApp.Tests
                 UserName = "test.user",
                 Password = "test123"
             };
-            Login login = new Login(user);
+            LoginModel.Login login = new LoginModel.Login(user);
             Assert.IsTrue(login.ValidateUser(), "User credentials invalid.");
         }
     }

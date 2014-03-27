@@ -1,4 +1,4 @@
-﻿using CrimeBusters.WebApp.Models.Login;
+﻿using LoginModel = CrimeBusters.WebApp.Models.Login;
 using CrimeBusters.WebApp.Models.Users;
 using System;
 using System.Collections.Generic;
@@ -18,17 +18,15 @@ namespace CrimeBusters.WebApp.Services
         {
             HttpRequest request = context.Request;
             HttpResponse response = context.Response;
-            String jsonString = String.Empty;
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
 
-            Login login = new Login(new User
+            LoginModel.Login login = new LoginModel.Login(new User
             {
                 UserName = request.QueryString["userName"],
                 Password = request.QueryString["password"]
             });
 
-            jsonString = serializer.Serialize(new { isValid = login.ValidateUser() });
-
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            String jsonString = serializer.Serialize(new { isValid = login.ValidateUser() });
             response.Write(jsonString);
             response.ContentType = "application/json";
         }

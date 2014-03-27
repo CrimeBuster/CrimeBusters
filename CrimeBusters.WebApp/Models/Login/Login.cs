@@ -48,6 +48,7 @@ namespace CrimeBusters.WebApp.Models.Login
             {
                 try
                 {
+                    Roles.AddUserToRole(this.User.UserName, "User");
                     CreateUserDetails();
                     SendVerificationEmail(newUser.ProviderUserKey.ToString(), contentLocator);
                 }
