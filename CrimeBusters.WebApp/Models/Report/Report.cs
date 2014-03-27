@@ -37,6 +37,7 @@ namespace CrimeBusters.WebApp.Models.Report
         public String Message { get; set; }
         public String Latitude { get; set; }
         public String Longitude { get; set; }
+        public String Location { get; set; }
         public String ResourceUrl { get; set; }
         public DateTime DateReported { get; set; }
         public string TimeStampString
@@ -56,13 +57,14 @@ namespace CrimeBusters.WebApp.Models.Report
             this.ReportId = reportId;
         }
         public Report(ReportTypeEnum reportTypeId, String message, 
-            String latitude, String longitude,
+            String latitude, String longitude, String location,
             DateTime dateReported, IUser user) 
         {
             this.ReportTypeId = reportTypeId;
             this.Message = message;
             this.Latitude = latitude;
             this.Longitude = longitude;
+            this.Location = location;
             this.DateReported = dateReported;
             this.User = user;
             this.ResourceUrl = "";
@@ -92,7 +94,7 @@ namespace CrimeBusters.WebApp.Models.Report
             try
             {
                 ReportsDAO.CreateReport(this.ReportTypeId, this.Message, 
-                    this.Latitude, this.Longitude, this.ResourceUrl, 
+                    this.Latitude, this.Longitude, this.Location, this.ResourceUrl, 
                     this.DateReported, this.User.UserName);
                 return "success";
             }

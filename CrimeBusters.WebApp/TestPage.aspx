@@ -14,6 +14,7 @@
                 formData.append("photo", $("input#uploadPicFile").get(0).files[0]);
                 formData.append("lat", $("input#lat").val());
                 formData.append("lng", $("input#lng").val());
+                formData.append("location", $("input#location").val());
                 formData.append("desc", $("input#desc").val());
                 formData.append("timeStamp", $("input#timeStamp").val());
                 formData.append("userName", $("input#userName").val());
@@ -45,6 +46,7 @@
         <div>
             latitude: <input id="lat" placeholder="latitude" value="40.099876" /> <br />
             longitude: <input id="lng" placeholder="longitude" value="-88.227857" /> <br />
+            location: <input id="location" placeholder="location" value="University of Illinois" /> <br />
             description: <input id="desc" placeholder="description" value="test description" /> <br />
             timestamp: <input id="timeStamp" placeholder="timestamp" value="03/26/2014" /> <br />
             username: <input id="userName" placeholder="username" value="chris.ababan" /> <br />

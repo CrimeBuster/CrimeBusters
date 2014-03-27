@@ -22,6 +22,7 @@ namespace CrimeBusters.WebApp.Tests
                "Test message",
                "40.104669",
                "-88.242254",
+               "University of Illinois Campus",
                DateTime.UtcNow,
                new User("test.user"));
             _testReport.CreateReport(null, null);
@@ -42,6 +43,7 @@ namespace CrimeBusters.WebApp.Tests
                 "",
                 "40.104669",
                 "-88.242254",
+                "University of Illinois Campus",
                 DateTime.UtcNow,
                 new User("test.user"));
             string result = report.CreateReport(null, null);
@@ -57,6 +59,7 @@ namespace CrimeBusters.WebApp.Tests
                 null,
                 "40.104669",
                 "-88.242254",
+                "University of Illinois Campus",
                 DateTime.UtcNow,
                 new User("test.user"));
             string result = report.CreateReport(null, null);
@@ -72,6 +75,7 @@ namespace CrimeBusters.WebApp.Tests
                 "Test message", 
                 "40.104669", 
                 "-88.242254", 
+                "University of Illinois Campus",
                 DateTime.UtcNow,
                 new User("test.user"));
             string result = report.CreateReport(null, null);

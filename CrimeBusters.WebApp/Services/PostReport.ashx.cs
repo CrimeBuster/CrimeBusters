@@ -26,6 +26,7 @@ namespace CrimeBusters.WebApp.Services
                 HttpPostedFile photo = request.Files["photo"];
                 String latitude = request.Form["lat"];
                 String longitude = request.Form["lng"];
+                String location = request.Form["location"];
                 String description = request.Form["desc"];
                 DateTime timeStamp = Convert.ToDateTime(request.Form["timeStamp"]);
                 String userName = request.Form["userName"];
@@ -33,7 +34,7 @@ namespace CrimeBusters.WebApp.Services
 
                 User user = new User(userName);
                 Report report = new Report((ReportTypeEnum)reportTypeId, description,
-                    latitude, longitude, timeStamp, user);
+                    latitude, longitude, location, timeStamp, user);
 
                 jsonString = serializer.Serialize(
                     new { result = report.CreateReport(photo, new WebContentLocator()) });
