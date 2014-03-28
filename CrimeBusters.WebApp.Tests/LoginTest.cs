@@ -53,7 +53,7 @@ namespace CrimeBusters.WebApp.Tests
                 Password = "test123"
             };
             LoginModel.Login login = new LoginModel.Login(user);
-            Assert.IsTrue(login.ValidateUser(), "User credentials invalid.");
+            Assert.IsTrue(login.ValidateUser().Equals("success"));
         }
     }
 }

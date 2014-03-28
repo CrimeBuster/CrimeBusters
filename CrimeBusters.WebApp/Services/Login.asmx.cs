@@ -20,13 +20,13 @@ namespace CrimeBusters.WebApp.Services
         [WebMethod]
         public string ValidateUser(string userName, string password, bool rememberMe)
         {
-            MembershipUser user = Membership.GetUser(userName);
             if (Membership.ValidateUser(userName, password))
             {
                 FormsAuthentication.SetAuthCookie(userName, rememberMe);
                 return Roles.IsUserInRole(userName, "Police") 
                     ? "Police" : "User";
             }
+            MembershipUser user = Membership.GetUser(userName);
             return ShowMeaningfulErrorMessage(userName, user);
         }
 

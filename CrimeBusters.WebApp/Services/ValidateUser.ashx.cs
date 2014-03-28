@@ -13,7 +13,6 @@ namespace CrimeBusters.WebApp.Services
     /// </summary>
     public class ValidateUser : IHttpHandler
     {
-
         public void ProcessRequest(HttpContext context)
         {
             HttpRequest request = context.Request;
@@ -26,7 +25,7 @@ namespace CrimeBusters.WebApp.Services
             });
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            String jsonString = serializer.Serialize(new { isValid = login.ValidateUser() });
+            String jsonString = serializer.Serialize(new { result = login.ValidateUser() });
             response.Write(jsonString);
             response.ContentType = "application/json";
         }

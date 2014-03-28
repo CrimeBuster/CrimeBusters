@@ -97,9 +97,39 @@ namespace CrimeBusters.WebApp.Models.Login
         /// Validates a user credential.
         /// </summary>
         /// <returns>true if the user credentials are valid</returns>
-        public bool ValidateUser()
+        public String ValidateUser()
         {
-            return Membership.ValidateUser(this.User.UserName, this.User.Password);
+            if (Membership.ValidateUser(this.User.UserName, this.User.Password))
+            {
+                return "success";
+            }
+            MembershipUser user = Membership.GetUser(this.User.UserName);
+            return ShowMeaningfulErrorMessage(this.User.UserName, user);
+        }
+
+        /// <summary>
+        /// Shows a meaningful error message if the validation fails.
+        /// </summary>
+        /// <param name="userName">username of the user</param>
+        /// <param name="user">MembershipUser object</param>
+        /// <returns>Reason why the validation failed.</returns>
+        private static String ShowMeaningfulErrorMessage(string userName, MembershipUser user)
+        {
+            if (user == null)
+            {
+                return "There is no user in the database with the username " + userName;
+            }
+            else if (!user.IsApproved)
+            {
+                return "Your account has not yet been verified. Please verify your account by clicking the link that you receive from your Illinois email address upon user creation.";
+            }
+            else if (user.IsLockedOut)
+            {
+                return "Your account has been locked out because of a maximum number of incorrect login attempts. " +
+                       "You will NOT be able to login until you contact a site administrator and have your account unlocked.";
+            }
+
+            return "Your password is incorrect.";
         }
     }
 }
