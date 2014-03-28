@@ -3,21 +3,30 @@ body {
 	padding: 0;
 	margin: 0;
 	background-color: orange;
-    color: white;
+    color: darkblue;
 }
 
 /* Login */
 #mainLogin {
-    border: 1px solid black;
-    background-color: blue;
+    border: 5px solid rgb(0,0,190);
     width: 960px;
     margin: auto;
     min-height: 641px;
+    background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #e5e5e5 84%, #e5e5e5 84%, #e5e5e5 84%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(84%,#e5e5e5), color-stop(84%,#e5e5e5), color-stop(84%,#e5e5e5));
+    background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%,#e5e5e5 84%,#e5e5e5 84%,#e5e5e5 84%);
+    background: -o-radial-gradient(center, ellipse cover, #ffffff 0%,#e5e5e5 84%,#e5e5e5 84%,#e5e5e5 84%);
+    background: -ms-radial-gradient(center, ellipse cover, #ffffff 0%,#e5e5e5 84%,#e5e5e5 84%,#e5e5e5 84%);
+    background: radial-gradient(ellipse at center, #ffffff 0%,#e5e5e5 84%,#e5e5e5 84%,#e5e5e5 84%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=1 );
+    border-radius: 5px;
+    margin-top: 5px;
 }
 
 #mainLogin img#logo {
     display: block;
     margin: auto;
+    margin-top: 20px;
 }
 
 
@@ -43,7 +52,7 @@ body {
 }
 
 #mainLogin #innerLogin {
-    padding: 0 10px;
+    padding: 5px 10px;
     border: 1px solid Gray;
     width: 300px;
     margin: auto;    
@@ -52,6 +61,10 @@ body {
 	-opera-border-radius: 5px;
 	-khtml-border-radius: 5px;
 	border-radius: 5px;
+}
+
+#LoginButton {
+    color: darkblue;
 }
 
 /* Main Page */
