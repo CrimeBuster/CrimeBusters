@@ -131,5 +131,14 @@ namespace CrimeBusters.WebApp.Models.Login
 
             return "Your password is incorrect.";
         }
+
+        /// <summary>
+        /// Deletes a user to the database.
+        /// </summary>
+        public void DeleteUser()
+        {
+            Membership.DeleteUser(this.User.UserName);
+            LoginDAO.DeleteUser(this.User.UserName);
+        }
     }
 }

@@ -11,7 +11,7 @@ using CrimeBusters.WebApp.Models.Util;
 namespace CrimeBusters.WebApp.Services
 {
     /// <summary>
-    /// Summary description for CreateUser
+    /// Creates a user and sends an email for authentication.
     /// </summary>
     public class CreateUser : IHttpHandler
     {
@@ -23,11 +23,11 @@ namespace CrimeBusters.WebApp.Services
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 
             LoginModel.Login login = new LoginModel.Login(new User { 
-                UserName = request.QueryString["userName"],
-                Password = request.QueryString["password"],
-                FirstName = request.QueryString["firstName"],
-                LastName = request.QueryString["lastName"],
-                Email = request.QueryString["email"]
+                UserName = request.Form["userName"],
+                Password = request.Form["password"],
+                FirstName = request.Form["firstName"],
+                LastName = request.Form["lastName"],
+                Email = request.Form["email"]
             });
 
             MembershipCreateStatus createStatus = login.CreateUser(new WebContentLocator());

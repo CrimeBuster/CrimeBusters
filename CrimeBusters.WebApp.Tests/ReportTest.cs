@@ -83,11 +83,11 @@ namespace CrimeBusters.WebApp.Tests
             Assert.IsTrue(result.Equals("success"), result);
         }
 
-        [TestMethod]
-        public void TestCreateReportWithFile()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod]
+        //public void TestCreateReportWithFile()
+        //{
+        //    Assert.Fail();
+        //}
 
         [TestMethod]
         public void TestGetReports()
