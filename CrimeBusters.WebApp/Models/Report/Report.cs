@@ -1,10 +1,13 @@
-﻿using CrimeBusters.WebApp.Models.DAL;
+﻿using System.IO;
+using CrimeBusters.WebApp.Models.DAL;
+using CrimeBusters.WebApp.Models.Documents;
 using CrimeBusters.WebApp.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using CrimeBusters.WebApp.Models.Util;
 
 namespace CrimeBusters.WebApp.Models.Report
 {
@@ -34,46 +37,65 @@ namespace CrimeBusters.WebApp.Models.Report
         public String Message { get; set; }
         public String Latitude { get; set; }
         public String Longitude { get; set; }
+        public String Location { get; set; }
         public String ResourceUrl { get; set; }
-        public DateTime TimeStamp { get; set; }
+        public DateTime DateReported { get; set; }
         public string TimeStampString
         {
             get
             {
-                return Convert.ToString(this.TimeStamp,
+                return Convert.ToString(this.DateReported,
                             System.Globalization.CultureInfo.InvariantCulture);
             }
         }
         public IUser User { get; set; }
+        public IDocument Photo { get; set; }
+
         public Report() { }
         public Report(int reportId) 
         {
             this.ReportId = reportId;
         }
         public Report(ReportTypeEnum reportTypeId, String message, 
-            String latitude, String longitude, String resourceUrl, 
-            DateTime timeStamp, IUser user) 
+            String latitude, String longitude, String location,
+            DateTime dateReported, IUser user) 
         {
             this.ReportTypeId = reportTypeId;
             this.Message = message;
             this.Latitude = latitude;
             this.Longitude = longitude;
-            this.ResourceUrl = resourceUrl;
-            this.TimeStamp = timeStamp;
+            this.Location = location;
+            this.DateReported = dateReported;
             this.User = user;
+            this.ResourceUrl = "";
         }
 
         /// <summary>
         /// Creates a report that will be saved to the database.
         /// </summary>
         /// <returns>success for successful insert, else will return the error message.</returns>
-        public string CreateReport() 
+        public string CreateReport(HttpPostedFile photo, IContentLocator contentLocator) 
         {
+            if (photo != null)
+            {
+                // Workaround for local showing full path whereas when deployed to the live site, 
+                // only the actual filename exists.
+                FileInfo fileInfo = new FileInfo(photo.FileName);
+
+                this.ResourceUrl = "~/Content/uploads/" + DateTime.Now.Ticks + "_" + fileInfo.Name;
+                this.Photo = new Photo
+                {
+                    Url = ResourceUrl,
+                    File = photo
+                };
+                this.Photo.Save(contentLocator);
+            }
+
             try
             {
                 ReportsDAO.CreateReport(this.ReportTypeId, this.Message, 
-                    this.Latitude, this.Longitude, this.ResourceUrl, 
-                    this.TimeStamp, this.User.UserName);
+                    this.Latitude, this.Longitude, this.Location, this.ResourceUrl, 
+                    this.DateReported, this.User.UserName);
                 return "success";
             }
             catch (Exception ex)
@@ -119,7 +141,7 @@ namespace CrimeBusters.WebApp.Models.Report
                         Latitude = reader[oLatitude].ToString(),
                         Longitude = reader[oLongitude].ToString(),
                         ResourceUrl = reader[oResourceUrl].ToString(),
-                        TimeStamp = Convert.ToDateTime(reader[oTimeStamp]),
+                        DateReported = Convert.ToDateTime(reader[oTimeStamp]),
                         User = new User 
                         {
                             UserName = reader[oUserName].ToString(),

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
+using CrimeBusters.WebApp.Models.Util;
 
 namespace CrimeBusters.WebApp.Services
 {
@@ -19,21 +20,24 @@ namespace CrimeBusters.WebApp.Services
             HttpResponse response = context.Response;
             String jsonString = String.Empty;
             JavaScriptSerializer serializer = new JavaScriptSerializer();
+
             try
             {
-                int reportTypeId = Int16.Parse(request.QueryString["reportTypeId"]);
-                String message = request.QueryString["message"];
-                String latitude = request.QueryString["latitude"];
-                String longitude = request.QueryString["longitude"];
-                String resourceUrl = request.QueryString["resourceUrl"];
-                DateTime timeStamp = Convert.ToDateTime(request.QueryString["timeStamp"]);
-                String userName = request.QueryString["userName"];
+                HttpPostedFile photo = request.Files["photo"];
+                String latitude = request.Form["lat"];
+                String longitude = request.Form["lng"];
+                String location = request.Form["location"];
+                String description = request.Form["desc"];
+                DateTime timeStamp = Convert.ToDateTime(request.Form["timeStamp"]);
+                String userName = request.Form["userName"];
+                int reportTypeId = Int16.Parse(request.Form["reportTypeId"]);
 
                 User user = new User(userName);
-                Report report = new Report((ReportTypeEnum)reportTypeId, message, latitude,
-                    longitude, resourceUrl, timeStamp, user);
+                Report report = new Report((ReportTypeEnum)reportTypeId, description,
+                    latitude, longitude, location, timeStamp, user);
 
-                jsonString = serializer.Serialize(new { result = report.CreateReport() });
+                jsonString = serializer.Serialize(
+                    new { result = report.CreateReport(photo, new WebContentLocator()) });
             }
             catch (Exception ex)
             {
