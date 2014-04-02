@@ -58,6 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\documents\VerifyAccount.html" />
+    <Content Include="Content\images\quad.jpg" />
+    <Content Include="Content\login.css" />
     <Content Include="Content\uploads\testImage.JPG" />
     <Content Include="Index.aspx" />
     <Content Include="Login.aspx" />
