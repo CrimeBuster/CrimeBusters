@@ -57,16 +57,20 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\documents\VerifyAccount.html" />
     <Content Include="Content\images\quad.jpg" />
     <Content Include="Content\uploads\testImage.JPG" />
     <Content Include="Index.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\header.js" />
     <Content Include="Services\CreateUser.ashx" />
     <Content Include="Services\Login.asmx" />
     <Content Include="Services\ValidateUser.ashx" />
     <Content Include="Services\UpdateProfile.ashx" />
     <Content Include="Services\DeleteUser.ashx" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

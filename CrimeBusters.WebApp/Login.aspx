@@ -11,7 +11,7 @@
     <script src="Scripts/login.js"></script>
     <title>Welcome to Crime Busters</title>
 </head>
-<body>
+<body id="login">
     <form id="form1" runat="server">
         <div id="mainLogin">
             <img id="logo" alt="Illinois Logo" src="/Content/images/ilogo_horz_bold.gif" />

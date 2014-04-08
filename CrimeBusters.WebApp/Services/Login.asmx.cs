@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.Services;
+using System.Web.Handlers;
+
 
 namespace CrimeBusters.WebApp.Services
 {
@@ -28,6 +30,38 @@ namespace CrimeBusters.WebApp.Services
             }
             MembershipUser user = Membership.GetUser(userName);
             return ShowMeaningfulErrorMessage(userName, user);
+        }
+
+        [WebMethod]
+        public string LogOutUser()
+        {
+            var request = HttpContext.Current.Request;
+            var response = HttpContext.Current.Response;
+            
+            FormsAuthentication.SignOut();            
+
+            // clear authentication cookie
+            if (request.Cookies[FormsAuthentication.FormsCookieName] != null)
+            {
+                HttpCookie cookie1 = new HttpCookie(FormsAuthentication.FormsCookieName, "");
+                cookie1.Expires = DateTime.Now.AddYears(-1);
+                response.Cookies.Add(cookie1);
+                return "User successfully logged out";
+            }
+            
+            return "User logout error";
+            
+        }
+
+        [WebMethod]
+        public string GetUser()
+        {
+            var request = HttpContext.Current.Request;
+            var response = HttpContext.Current.Response;
+            MembershipUser user = Membership.GetUser();
+
+            return user.UserName;
+           
         }
 
         private static string ShowMeaningfulErrorMessage(string userName, MembershipUser user)
