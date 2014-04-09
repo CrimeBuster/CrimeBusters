@@ -53,17 +53,6 @@ namespace CrimeBusters.WebApp.Services
             
         }
 
-        [WebMethod]
-        public string GetUser()
-        {
-            var request = HttpContext.Current.Request;
-            var response = HttpContext.Current.Response;
-            MembershipUser user = Membership.GetUser();
-
-            return user.UserName;
-           
-        }
-
         private static string ShowMeaningfulErrorMessage(string userName, MembershipUser user)
         {
             if (user == null)

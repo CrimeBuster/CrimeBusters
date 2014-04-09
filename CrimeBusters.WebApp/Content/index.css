@@ -111,17 +111,27 @@ input#loginButton {
     background-color: orange;
 }
 
-#user {
+#rightMenu {
     position: absolute;
     top: 0;
     right: 100px;
     color: darkblue;
 }
 
+#user {
+    display: inline;
+}
+
 #user:hover {
     color: white;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .dropdown-menu, logOut{
     min-width: 100px !important;
+}
+
+span#loginName {
+    font-weight: bold;
 }

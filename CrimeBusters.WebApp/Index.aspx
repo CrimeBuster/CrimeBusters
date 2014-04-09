@@ -15,14 +15,18 @@
         <div id="main">
             <header>
                 <h3>Crime Buster</h3>
-                <div id="user" class="dropdown">
-                    <span class="dropdown-toggle" data-toggle="dropdown" id="userLoginName"></span>
-                    <ul class="dropdown-menu cbMenu">
-                        <li><a href="#" id="Hi_Alert">Hi Alert</a></li>
-                        <li><a href="#" id="Lo_Alert">Lo Alert</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" id="signOut">Sign Out</a></li>
-                    </ul>
+                <div id="rightMenu">
+                    Welcome <asp:LoginName ID="loginName" runat="server" />! | 
+                    <div id="user" class="dropdown">
+                        <span class="dropdown-toggle" data-toggle="dropdown">More Options</span>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="allAlerts">All Alerts</a></li>
+                            <li><a href="#" id="hiAlerts">High Alerts</a></li>
+                            <li><a href="#" id="loAlert">Low Alerts</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#" id="signOut">Sign Out</a></li>
+                        </ul>
+                    </div>
                 </div>
             </header>
             <div id="map"></div>

@@ -1,8 +1,6 @@
 var userCoords = [];
 
 $(function () {
-    $.getUserName();
-
 	var map = $.getMap();
 	$.plotUsersOnMap(map);
 
@@ -122,22 +120,6 @@ $(function () {
 	        infoWindow.setContent(content);
 	        infoWindow.open(map, marker);
 	        marker.setAnimation(null);
-	    });
-	};
-
-	$.getUserName = function () {
-	    $.ajax({
-	        type: "POST",
-	        dataType: "json",
-	        timeout: 10000,
-	        contentType: "application/json",
-	        url: "../Services/Login.asmx/GetUser",
-	        success: function (data) {
-	            $("#userLoginName").text(data.d);
-	        },
-	        error: function () {
-	            alert("Unable to communicate with the server. Please try again.");
-	        }
 	    });
 	};
 
