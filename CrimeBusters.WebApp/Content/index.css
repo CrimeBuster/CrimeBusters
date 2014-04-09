@@ -111,8 +111,13 @@ input#loginButton {
     display:inline;
 }
 
-#user{
+#user {
     display:inline;
+    color: darkblue;
+}
+
+#user:hover {
+    color: white;
 }
 
 .dropdown-menu, logOut{

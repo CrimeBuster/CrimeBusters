@@ -1,13 +1,4 @@
-﻿$("#user").hover(
-  function () {
-      $(this).css('color', 'white')
-  }, function () {
-      $(this).css('color', 'darkblue')
-  }
-);
-
-
-$(function () {
+﻿$(function () {
    
     $("#signOut").on("click", function (e) {
         e.preventDefault();
