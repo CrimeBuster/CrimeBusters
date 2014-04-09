@@ -64,7 +64,6 @@
     <Content Include="Index.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\header.js" />
     <Content Include="Services\CreateUser.ashx" />
     <Content Include="Services\Login.asmx" />
     <Content Include="Services\ValidateUser.ashx" />

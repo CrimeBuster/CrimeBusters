@@ -34,6 +34,5 @@
     </form>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/index.js"></script>
-    <script src="Scripts/header.js"></script>
 </body>
 </html>
