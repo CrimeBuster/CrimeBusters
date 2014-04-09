@@ -20,9 +20,9 @@
                     <div id="user" class="dropdown">
                         <span class="dropdown-toggle" data-toggle="dropdown">More Options</span>
                         <ul class="dropdown-menu">
-                            <li><a href="#" id="allAlerts">All Alerts</a></li>
-                            <li><a href="#" id="hiAlerts">High Alerts</a></li>
-                            <li><a href="#" id="loAlert">Low Alerts</a></li>
+                            <li><a href="#" id="allAlerts" data-reporttype="all">All Alerts</a></li>
+                            <li><a href="#" id="hiAlerts" data-reporttype="high">High Alerts</a></li>
+                            <li><a href="#" id="loAlerts" data-reporttype="low">Low Alerts</a></li>
                             <li class="divider"></li>
                             <li><a href="#" id="signOut">Sign Out</a></li>
                         </ul>

@@ -19,7 +19,7 @@ namespace CrimeBusters.WebApp.Models.Report
         private String _reportType;
         public int ReportId { get; set; }
         public ReportTypeEnum ReportTypeId { get; set; }
-        public string ReportType 
+        public String ReportType 
         {
             get 
             {
@@ -34,6 +34,7 @@ namespace CrimeBusters.WebApp.Models.Report
                 _reportType = value;
             }
         }
+        public String MarkerImage { get; set; }
         public String Message { get; set; }
         public String Latitude { get; set; }
         public String Longitude { get; set; }
@@ -117,6 +118,7 @@ namespace CrimeBusters.WebApp.Models.Report
             {
                 int oReportId = reader.GetOrdinal("ReportId");
                 int oReportType = reader.GetOrdinal("ReportType");
+                int oMarkerImage = reader.GetOrdinal("MarkerImage");
                 int oMessage = reader.GetOrdinal("Message");
                 int oLatitude = reader.GetOrdinal("Latitude");
                 int oLongitude = reader.GetOrdinal("Longitude");
@@ -137,6 +139,7 @@ namespace CrimeBusters.WebApp.Models.Report
                     {
                         ReportId = Convert.ToInt32(reader[oReportId]),
                         ReportType = reader[oReportType].ToString(),
+                        MarkerImage = reader[oMarkerImage].ToString(),
                         Message = reader[oMessage].ToString(),
                         Latitude = reader[oLatitude].ToString(),
                         Longitude = reader[oLongitude].ToString(),

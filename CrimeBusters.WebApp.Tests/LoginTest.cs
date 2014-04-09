@@ -61,17 +61,5 @@ namespace CrimeBusters.WebApp.Tests
             LoginModel.Login login = new LoginModel.Login(user);
             Assert.IsTrue(login.ValidateUser().Equals("success"));
         }
-
-        /*[TestMethod]
-        public void TestLogOffWebUser()
-        {
-            var testUserName = "testUser";
-            CrimeBusters.WebApp.Services.Login loginWebService = new CrimeBusters.WebApp.Services.Login();
-            FormsAuthentication.SetAuthCookie(testUserName, false);
-            loginWebService.LogOutUser();
-            bool isLoggedIn = HttpContext.Current.User.Identity.IsAuthenticated;
-            Assert.IsFalse(isLoggedIn);
-
-        }*/
     }
 }

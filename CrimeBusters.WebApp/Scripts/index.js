@@ -1,4 +1,6 @@
 var userCoords = [];
+var hiMarkers = [];
+var loMarkers = [];
 
 $(function () {
 	var map = $.getMap();
@@ -18,6 +20,12 @@ $(function () {
 	        width: "335px"
 	    });
 	});
+
+	$("a[data-reporttype]", "ul.dropdown-menu").on("click", function(e) {
+	    e.preventDefault();
+	    var reportType = $(this).attr("data-reporttype");
+        $.updateMapClientSide(map, reportType);
+    });
 
 	$("#signOut").on("click", function (e) {
 	    e.preventDefault();
@@ -39,6 +47,7 @@ $(function () {
 	$.plotUsersOnMap = function (map) {
 	    var coords = [];
 	    var location;
+
 	    $.ajax({
 	        type: "POST",
 	        dataType: "json",
@@ -49,20 +58,20 @@ $(function () {
 	            $.each(data.d, function () {
 	                // Used to workaround the issue when 2 markers are on the same position.
 	                var lat = this.Latitude;
-	                var long = this.Longitude;
-	                var hash = lat + long;
+	                var lng = this.Longitude;
+	                var hash = lat + lng;
 
 	                hash = hash.replace(/\./g, "").replace(",", "").replace("-", "");
 
 	                // check to see if we've seen this hash before
 	                if (userCoords[hash] == null && coords[hash] == null) {
-	                    location = new google.maps.LatLng(parseFloat(lat), parseFloat(long));
+	                    location = new google.maps.LatLng(parseFloat(lat), parseFloat(lng));
 	                    // store an indicator that we've seen this point before
 	                    coords[hash] = 1;
 	                } else {
 	                    // add some randomness to this point
 	                    var newLat = parseFloat(lat) + (Math.random() - .5) / 1500;
-	                    var newLong = parseFloat(long) + (Math.random() - .5) / 1500;
+	                    var newLong = parseFloat(lng) + (Math.random() - .5) / 1500;
 
 	                    // get the coordinate object
 	                    location = new google.maps.LatLng(newLat.toFixed(6), newLong.toFixed(6));
@@ -72,8 +81,15 @@ $(function () {
 	                    position: location,
 	                    map: map,
 	                    title: this.User.UserName,
+                        icon: this.MarkerImage,
 	                    animation: google.maps.Animation.BOUNCE
 	                });
+
+	                if (this.ReportType == "HIGH") {
+	                    hiMarkers.push(marker);
+	                } else {
+	                    loMarkers.push(marker);
+	                }
 
 	                // Shows the local time in the browser.
 	                // workaround for Safari
@@ -123,7 +139,36 @@ $(function () {
 	    });
 	};
 
-	$.logOffUser = function () {
+    $.updateMapClientSide = function(map, reportType) {
+        switch (reportType) {
+            case "high":
+                $.showMarkers(map, hiMarkers);
+                $.clearMarkers(loMarkers);
+                break;
+            case "low":
+                $.showMarkers(map, loMarkers);
+                $.clearMarkers(hiMarkers);
+                break;
+            default:
+                $.showMarkers(map, hiMarkers);
+                $.showMarkers(map, loMarkers);
+                break;
+        }
+    };
+
+    $.showMarkers = function(map, markers) {
+        for (var i in markers) {
+            markers[i].setMap(map);
+        }
+    };
+
+    $.clearMarkers = function(markers) {
+        for (var i in markers) {
+            markers[i].setMap(null);
+        }
+    };
+
+    $.logOffUser = function () {
 	    $.ajax({
 	        type: "POST",
 	        dataType: "json",

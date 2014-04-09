@@ -6,7 +6,7 @@ body {
 }
 
 /* Login */
-#login{
+body#login{
      background: url('/Content/images/quad.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -88,6 +88,10 @@ input#loginButton {
 }
 
 /* Main Page */
+body#dashboard{
+    background-color: orange;
+}
+
 #main header {
     position: relative;
 }
@@ -107,14 +111,10 @@ input#loginButton {
     color: black;
 }
 
-#dashboard{
-    background-color: orange;
-}
-
 #rightMenu {
     position: absolute;
     top: 0;
-    right: 100px;
+    right: 29px;
     color: darkblue;
 }
 
@@ -128,7 +128,7 @@ input#loginButton {
     text-decoration: underline;
 }
 
-.dropdown-menu, logOut{
+.dropdown-menu {
     min-width: 100px !important;
 }
 

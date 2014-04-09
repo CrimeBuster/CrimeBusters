@@ -59,6 +59,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\documents\VerifyAccount.html" />
+    <Content Include="Content\images\hi.png" />
+    <Content Include="Content\images\lo.png" />
     <Content Include="Content\images\quad.jpg" />
     <Content Include="Content\uploads\testImage.JPG" />
     <Content Include="Index.aspx" />
