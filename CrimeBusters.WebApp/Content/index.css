@@ -15,10 +15,12 @@ body {
 }
 
 #mainLogin {
-    border: 5px solid rgb(0,0,190);
-    width: 960px;
-    margin: auto;
-    min-height: 641px;
+    border: 3px solid rgb(0,0,190);
+    width: 576px;
+    height: 324px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
     background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #e5e5e5 84%, #e5e5e5 84%, #e5e5e5 84%);
     background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(84%,#e5e5e5), color-stop(84%,#e5e5e5), color-stop(84%,#e5e5e5));
     background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%,#e5e5e5 84%,#e5e5e5 84%,#e5e5e5 84%);
@@ -27,51 +29,62 @@ body {
     background: radial-gradient(ellipse at center, #ffffff 0%,#e5e5e5 84%,#e5e5e5 84%,#e5e5e5 84%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=1 );
     border-radius: 5px;
-    margin-top: 5px;
 }
 
-    #mainLogin img#logo {
-        display: block;
-        margin: auto;
-        margin-top: 20px;
-    }
+#mainLogin img#logo {
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+}
 
+#mainLogin h2,
+#mainLogin h4 {
+    text-align: center;
+    margin: 15px 0;
+}
 
-    #mainLogin h1,
-    #mainLogin h2,
-    #mainLogin h3 {
-        text-align: center;
-    }
+#mainLogin h4 {
+    margin: 0;
+}
 
-    #mainLogin input[type="text"],
-    #mainLogin input[type="password"] {
-        display: block;
-        border: 1px solid rgb(170, 170, 170);
-        width: 292px;
-        margin-bottom: 10px;
-        /* round corners */
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        -opera-border-radius: 3px;
-        -khtml-border-radius: 3px;
-        padding: 3px;
-        border-radius: 3px;
-    }
+#mainLogin input[type="text"],
+#mainLogin input[type="password"] {
+    display: block;
+    border: 1px solid rgb(170, 170, 170);
+    width: 302px;
+    margin-bottom: 10px;
+    /* round corners */
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -opera-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    padding: 5px;
+    border-radius: 3px;
+}
 
-    #mainLogin #innerLogin {
-        padding: 5px 10px;
-        border: 1px solid Gray;
-        width: 300px;
-        margin: auto;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        -opera-border-radius: 5px;
-        -khtml-border-radius: 5px;
-        border-radius: 5px;
-    }
+#mainLogin #innerLogin {
+    padding: 15px 25px;
+    border: 1px solid Gray;
+    width: 313px;
+    margin: auto;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -opera-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    position: relative;
+}
 
-#LoginButton {
-    color: darkblue;
+label[for=rememberMe] {
+    font-size: 0.75em;
+}
+
+input#loginButton {
+    display: block;
+    position: absolute;
+    font-size: 12px;
+    bottom: 8px;
+    right: 21px;
 }
 
 /* Main Page */

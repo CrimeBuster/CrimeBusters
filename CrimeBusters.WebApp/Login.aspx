@@ -6,25 +6,24 @@
 <head runat="server">
     <link href="Content/themes/illinoisTheme/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
     <link href="Content/index.css" rel="stylesheet" />
-    <script src="Scripts/jquery-1.10.2.js"></script>
-    <script src="Scripts/jquery-ui-1.10.4.custom.min.js"></script>
-    <script src="Scripts/login.js"></script>
     <title>Welcome to Crime Busters</title>
 </head>
 <body id="login">
     <form id="form1" runat="server">
         <div id="mainLogin">
             <img id="logo" alt="Illinois Logo" src="/Content/images/ilogo_horz_bold.gif" />
-            <h1>Welcome to the University of Illinois</h1>
             <h2>Crime Busters</h2>
             <div id="innerLogin">
-                <h3>Please Log In</h3>
+                <h4>Please Log In</h4>
                 <input id="userName" type="text" placeholder="username" class="required" />
                 <input id="password" type="password" placeholder="password" class="required" />
-                <input id="rememberMe" type="checkbox" /><label for="rememberMe">Remember me on this computer.</label>
+                <input id="rememberMe" type="checkbox" /><label for="rememberMe">Remember me</label>
                 <input id="loginButton" type="submit" value="Login" />
             </div>
         </div>
     </form>
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script src="Scripts/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="Scripts/login.js"></script>
 </body>
 </html>

@@ -32,8 +32,8 @@
             <img alt="uploaded image" height="400" width="300" />
         </div>
     </form>
-</body>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/index.js"></script>
     <script src="Scripts/header.js"></script>
+</body>
 </html>

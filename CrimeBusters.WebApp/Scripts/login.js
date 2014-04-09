@@ -52,11 +52,11 @@
                 } else {
                     alert(data.d);
                 }
+
+                $("input#loginButton").val("Login").removeAttr("disabled");
             },
             error: function() {
                 alert("Unable to communicate with the server. Please try again.");
-            },
-            complete: function() {
                 $("input#loginButton").val("Login").removeAttr("disabled");
             }
         });
