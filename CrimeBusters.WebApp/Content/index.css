@@ -88,9 +88,13 @@ input#loginButton {
 }
 
 /* Main Page */
+#main header {
+    position: relative;
+}
+
 #main h3 {
     margin: 15px;
-    color: blue;
+    color: darkblue;
 }
 
 #map {
@@ -107,12 +111,10 @@ input#loginButton {
     background-color: orange;
 }
 
-#CrimeBusterTitle{
-    display:inline;
-}
-
 #user {
-    display:inline;
+    position: absolute;
+    top: 0;
+    right: 100px;
     color: darkblue;
 }
 
