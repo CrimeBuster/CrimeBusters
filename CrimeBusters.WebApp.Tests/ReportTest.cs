@@ -83,11 +83,54 @@ namespace CrimeBusters.WebApp.Tests
             Assert.IsTrue(result.Equals("success"), result);
         }
 
-        //[TestMethod]
-        //public void TestCreateReportWithFile()
-        //{
-        //    Assert.Fail();
-        //}
+        [TestMethod]
+        public void TestCreateReportWithNoLatitude()
+        {
+            Report report = new Report(
+                ReportTypeEnum.HighPriority,
+                "Test message",
+                 null,
+                 "-88.242254",
+                "University of Illinois Campus",
+                DateTime.UtcNow,
+                new User("test.user"));
+            string result = report.CreateReport(null, null);
+
+            Assert.IsFalse(result.Equals("success"), result);
+        }
+
+        [TestMethod]
+        public void TestCreateReportWithNoLongitutde()
+        {
+            Report report = new Report(
+                ReportTypeEnum.HighPriority,
+                "Test message",
+                 "40.104669",
+                 null,
+                "University of Illinois Campus",
+                DateTime.UtcNow,
+                new User("test.user"));
+            string result = report.CreateReport(null, null);
+
+            Assert.IsFalse(result.Equals("success"), result);
+        }
+
+        [TestMethod]
+        public void TestCreateReportWithNoUser()
+        {
+            Report report = new Report(
+                ReportTypeEnum.HighPriority,
+                "Test message",
+                 "40.104669",
+                 "-88.242254",
+                "University of Illinois Campus",
+                DateTime.UtcNow,
+                null);
+            string result = report.CreateReport(null, null);
+
+            Assert.IsFalse(result.Equals("success"), result);
+        }
+
 
         [TestMethod]
         public void TestGetReports()
