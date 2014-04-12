@@ -33,6 +33,11 @@ namespace CrimeBusters.WebApp.Models.Login
         /// <returns></returns>
         public MembershipCreateStatus CreateUser(IContentLocator contentLocator)
         {
+            if (String.IsNullOrEmpty(this.User.Email))
+            {
+                return MembershipCreateStatus.UserRejected;
+            }
+
             MembershipCreateStatus createStatus;
 
             MembershipUser newUser = Membership.CreateUser(

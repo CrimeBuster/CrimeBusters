@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CrimeBusters.WebApp.Models.Users;
 
@@ -7,6 +8,7 @@ namespace CrimeBusters.WebApp.Tests
     [TestClass]
     public class UserTest
     {
+        public TestContext TestContext { get; set; }
         private User _testUser;
 
         [TestInitialize]
@@ -70,6 +72,47 @@ namespace CrimeBusters.WebApp.Tests
             Assert.IsTrue(updatedUser.PhoneNumber.Equals("+12345678900"), "PhoneNumber should be +12345678900.");
             Assert.IsTrue(updatedUser.Address.Equals("Urbana Updated"), "Address should be Urbana Updated.");
             Assert.IsTrue(updatedUser.ZipCode.Equals("51423 Updated"), "Zipcode should be 51423 Updated.");
+        }
+
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.XML",
+            "|DataDirectory|\\UserData.xml",
+            "UpdateProfile",
+            DataAccessMethod.Sequential),
+        DeploymentItem("~/UserData.xml"),
+        TestMethod]
+        public void TestUpdateProfileEdgeCases()
+        {
+            String expectedResult = String.Empty;
+            try
+            {
+                Object j = TestContext.DataRow["FirstName"];
+                if (j == null)
+                {
+                    String x;
+                }
+
+                String firstName = TestContext.DataRow["FirstName"].ToString();
+                String lastName = TestContext.DataRow["LastName"].ToString();
+                String gender = TestContext.DataRow["Gender"].ToString();
+                String phoneNumber = TestContext.DataRow["PhoneNumber"].ToString();
+                String address = TestContext.DataRow["Address"].ToString();
+                String zipCode = TestContext.DataRow["ZipCode"].ToString();
+                expectedResult = TestContext.DataRow["Result"].ToString();
+
+                _testUser.FirstName = firstName;
+                _testUser.LastName = lastName;
+                _testUser.Gender = gender;
+                _testUser.PhoneNumber = phoneNumber;
+                _testUser.Address = address;
+                _testUser.ZipCode = zipCode;
+                _testUser.UpdateProfile();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(expectedResult.Contains(ex.Message), ex.Message);
+                return;
+            }
+            Assert.Fail();
         }
     }
 }

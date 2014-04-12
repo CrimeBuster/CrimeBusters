@@ -16,6 +16,8 @@ namespace CrimeBusters.WebApp.Tests
     [TestClass]
     public class LoginTest
     {
+        public TestContext TestContext { get; set; }
+
         [TestInitialize]
         public void Initialize()
         {
@@ -32,34 +34,56 @@ namespace CrimeBusters.WebApp.Tests
             LoginDAO.DeleteUser("test.user2");
         }
 
-        [TestMethod]
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.XML",
+                    "|DataDirectory|\\LoginData.xml",
+                    "CreateUser",
+                    DataAccessMethod.Sequential),
+        DeploymentItem("~/LoginData.xml"),
+        TestMethod]
         public void TestCreateUser()
         {
+            String userName = Convert.ToString(TestContext.DataRow["UserName"]);
+            String password = Convert.ToString(TestContext.DataRow["Password"]);
+            String firstName = Convert.ToString(TestContext.DataRow["FirstName"]);
+            String lastName = Convert.ToString(TestContext.DataRow["LastName"]);
+            String email = Convert.ToString(TestContext.DataRow["Email"]);
+            String expectedResult = Convert.ToString(TestContext.DataRow["Result"]);
+
             IUser newUser = new User
             {
-                UserName = "test.user2",
-                Password = "test123",
-                FirstName = "FirstName Test",
-                LastName = "LastName Test",
-                Email = "test2@crimbusters.com"
+                UserName = userName,
+                Password = password,
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email
             };
-
             LoginModel.Login login = new LoginModel.Login(newUser);
-            MembershipCreateStatus createStatus = login.CreateUser(new TestContentLocator());
-            Assert.AreEqual(MembershipCreateStatus.Success, createStatus,
-                "User creation failure.");
+            String actualResult = login.CreateUser(new TestContentLocator()).ToString();
+
+            Assert.AreEqual(expectedResult, actualResult);
         }
 
-        [TestMethod]
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.XML",
+                    "|DataDirectory|\\LoginData.xml",
+                    "Credentials", 
+                    DataAccessMethod.Sequential), 
+        DeploymentItem("~/LoginData.xml"), 
+        TestMethod]
         public void TestValidateUser()
         {
+            String userName = Convert.ToString(TestContext.DataRow["UserName"]);
+            String password = Convert.ToString(TestContext.DataRow["Password"]);
+            String expectedResult = Convert.ToString(TestContext.DataRow["Result"]);
+
             IUser user = new User
             {
-                UserName = "test.user",
-                Password = "test123"
+                UserName = userName,
+                Password = password
             };
             LoginModel.Login login = new LoginModel.Login(user);
-            Assert.IsTrue(login.ValidateUser().Equals("success"));
+            String actualResult = login.ValidateUser();
+
+            Assert.AreEqual(expectedResult, actualResult);
         }
     }
 }
