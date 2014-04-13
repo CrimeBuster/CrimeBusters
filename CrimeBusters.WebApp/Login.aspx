@@ -12,9 +12,9 @@
     <form id="form1" runat="server">
         <div id="mainLogin">
             <img id="logo" alt="Illinois Logo" src="/Content/images/ilogo_horz_bold.gif" />
-            <h2>Crime Busters</h2>
+            <h2 id="crimebusterHeader">Crime Busters</h2>
             <div id="innerLogin">
-                <h4>Please Log In</h4>
+                <h4 id="loginHeader">Please Log In</h4>
                 <input id="userName" type="text" placeholder="username" class="required" />
                 <input id="password" type="password" placeholder="password" class="required" />
                 <input id="rememberMe" type="checkbox" /><label for="rememberMe">Remember me</label>

@@ -10,9 +10,10 @@
     <link href="Content/bootstrap.css.map" rel="stylesheet" />
     <title>Crime Buster</title>
 </head>
-<body id="dashboard">
+<body>
     <form id="form1" runat="server">
         <div id="main">
+            <div id="dashboard">
             <header>
                 <h3>Crime Buster</h3>
                 <div id="rightMenu">
@@ -29,6 +30,7 @@
                     </div>
                 </div>
             </header>
+            </div>
             <div id="map"></div>
         </div>
         <div id="uploadedImageWindow" style="display: none">
