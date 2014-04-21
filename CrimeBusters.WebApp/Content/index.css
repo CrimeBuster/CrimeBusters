@@ -154,3 +154,44 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffba60', end
 span#loginName {
     font-weight: bold;
 }
+
+#reportsDashboard table {
+	width: 100%;
+	text-align: left;
+	border-collapse: collapse;  
+}
+
+#reportsDashboard th, #reportsDashboard td
+{
+    text-align: left;
+	padding: 4px;
+	background: rgb(230, 230, 230);
+	border-bottom: 1px solid #fff;
+}
+
+#reportsDashboard td
+{
+	border-bottom: 1px solid #fff;
+    background: #F7F7F7;
+	border-top: 1px solid transparent;
+}
+
+#reportsDashboard tr:nth-child(even) td {
+    background: #e9e9e9;
+}
+
+#reportsDashboard table tbody tr:hover {
+    cursor: pointer;
+    color: orange;
+}
+
+ul.paging {
+    list-style-type: none !important; 
+}
+
+ul.paging li a {
+    display: inline;
+    font-size: 10px;
+    width: 14px !important;
+    float: left;
+}

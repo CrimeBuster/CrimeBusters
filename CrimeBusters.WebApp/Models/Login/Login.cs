@@ -35,7 +35,7 @@ namespace CrimeBusters.WebApp.Models.Login
         {
             if (String.IsNullOrEmpty(this.User.Email))
             {
-                return MembershipCreateStatus.UserRejected;
+                return MembershipCreateStatus.InvalidEmail;
             }
 
             MembershipCreateStatus createStatus;

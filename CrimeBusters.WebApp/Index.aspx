@@ -25,6 +25,8 @@
                             <li><a href="#" id="hiAlerts" data-reporttype="high">High Alerts</a></li>
                             <li><a href="#" id="loAlerts" data-reporttype="low">Low Alerts</a></li>
                             <li class="divider"></li>
+                            <li><a href="#" id="showReports">All Reports</a></li>
+                            <li class="divider"></li>
                             <li><a href="#" id="signOut">Sign Out</a></li>
                         </ul>
                     </div>
@@ -36,6 +38,7 @@
         <div id="uploadedImageWindow" style="display: none">
             <img alt="uploaded image" src="" height="400" width="300" />
         </div>
+        <div id="reportsDashboard" style="display: none"></div>
     </form>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script src="Scripts/jquery-1.10.2.js"></script>

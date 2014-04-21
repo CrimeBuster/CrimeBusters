@@ -45,6 +45,6 @@
     <FirstName>John</FirstName>
     <LastName>Doe</LastName>
     <Email></Email>
-    <Result>UserRejected</Result>
+    <Result>InvalidEmail</Result>
   </CreateUser>
 </LoginData>
