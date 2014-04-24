@@ -7,18 +7,32 @@ $(function () {
 	var map = $.getMap();
 	$.plotUsersOnMap(map);
 
-	$(document).on("click", "a[data-pictureurl]", function (e) {
+	$(document).on("click", "a.viewUploadedMedia", function (e) {
 	    e.preventDefault();
-	    
-	    var pictureUrl = $(this).attr("data-pictureurl");
-	    $("img", "#uploadedImageWindow").attr("src", pictureUrl.substring(2));
+
+	    var mediaListUrl = $(this).nextAll("input[data-mediaUrl]:hidden");
+	    $("#uploadedImageWindow").children().remove();
+	    $("#uploadedImageWindow").append("<ul class='uploadedImages'>");
+	    $.each(mediaListUrl, function () {
+	        var mediaUrl = $(this).attr("data-mediaUrl");
+	        if ($.isImage(mediaUrl)) {
+	            $("ul.uploadedImages", "#uploadedImageWindow").append(
+                    "<li><img src='" + mediaUrl.substr(2) + "' alt='Uploaded Image' height='400' width='300' /></li>");
+	        } else if ($.isVideo(mediaUrl)) {
+
+	        } else if ($.isAudio(mediaUrl)) {
+
+	        }
+	    });
+	    $("#uploadedImageWindow").append("</ul>");
 
 	    $("#uploadedImageWindow").dialog({
 	        title: "Uploaded Image",
 	        show: "fade",
 	        hide: "clip",
 	        modal: true,
-	        width: "335px"
+	        width: "402px",
+            minheight: "500px"
 	    });
 	});
 
@@ -142,9 +156,12 @@ $(function () {
                                         "</ul>" +
                                   "</div>";
 
-	                if (this.ResourceUrl != "") {
-	                    content += "<a data-pictureurl='" + this.ResourceUrl
-                            + "' href='#'>View Uploaded Picture</a>";
+	                if (this.UrlList.length != 0) {
+	                    content += "<a class='viewUploadedMedia' href='#'>View Uploaded Media</a>";
+
+	                    for (var i in this.UrlList) {
+	                        content += "<input type='hidden' data-mediaUrl='" + this.UrlList[i] + "' />";
+	                    }
 	                }
 	                $.attachInfo(map, content, marker);
 	            });
@@ -350,6 +367,37 @@ $(function () {
             }
         });
     };
+
+    $.isImage = function(imageUrl) {
+        if (imageUrl.indexOf(".gif") > 0 || 
+            imageUrl.indexOf(".png") > 0 ||
+            imageUrl.indexOf(".jpg") > 0 ||
+            imageUrl.indexOf(".jpeg") > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    $.isVideo = function (videoUrl) {
+        if (videoUrl.indexOf(".mp4") > 0 ||
+            videoUrl.indexOf(".avi") > 0 ||
+            videoUrl.indexOf(".ogv") > 0 ||
+            videoUrl.indexOf(".webm") > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    $.isAudio = function (audioUrl) {
+        if (audioUrl.indexOf(".mp3") > 0 ||
+            audioUrl.indexOf(".wav") > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 })(jQuery);
 
 

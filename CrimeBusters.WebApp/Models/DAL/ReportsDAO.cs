@@ -13,7 +13,7 @@ namespace CrimeBusters.WebApp.Models.DAL
     public class ReportsDAO
     {
         public static void CreateReport(ReportTypeEnum reportTypeId, String message, 
-            String latitude, String longitude, String location, string resourceUrl, DateTime dateReported,
+            String latitude, String longitude, String location, DateTime dateReported,
             String userName, List<String> resourceUrlList) 
         { 
             using (SqlConnection connection = ConnectionManager.GetConnection()) 

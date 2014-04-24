@@ -18,8 +18,9 @@ namespace CrimeBusters.WebApp.Models.Report
     public class Report
     {
         private String _reportType;
-        private readonly List<IDocument> _media = new List<IDocument>();
- 
+        private List<IDocument> _media = new List<IDocument>();
+        private List<String> _urlList = new List<string>();
+
         public int ReportId { get; set; }
         public ReportTypeEnum ReportTypeId { get; set; }
         public String ReportType 
@@ -42,7 +43,6 @@ namespace CrimeBusters.WebApp.Models.Report
         public String Latitude { get; set; }
         public String Longitude { get; set; }
         public String Location { get; set; }
-        public String ResourceUrl { get; set; }
         public DateTime DateReported { get; set; }
         public string TimeStampString
         {
@@ -56,6 +56,10 @@ namespace CrimeBusters.WebApp.Models.Report
         public List<IDocument> Media 
         {
             get { return _media; }
+        }
+        public List<String> UrlList
+        {
+            get { return _urlList; }
         }
 
         public Report() { }
@@ -74,7 +78,6 @@ namespace CrimeBusters.WebApp.Models.Report
             this.Location = location;
             this.DateReported = dateReported;
             this.User = user;
-            this.ResourceUrl = "";
         }
 
         /// <summary>
@@ -83,18 +86,17 @@ namespace CrimeBusters.WebApp.Models.Report
         /// <returns>success for successful insert, else will return the error message.</returns>
         public string CreateReport(IContentLocator contentLocator) 
         {
-            var resourceUrlList = new List<string>();
             foreach (var document in Media.Where(document => document != null))
             {
-                resourceUrlList.Add(document.Url);
+                AddUrlList(document.Url);
                 document.Save(contentLocator);
             }
 
             try
             {
                 ReportsDAO.CreateReport(ReportTypeId, Message, 
-                    Latitude, Longitude, Location, ResourceUrl, 
-                    DateReported, User.UserName, resourceUrlList);
+                    Latitude, Longitude, Location, DateReported, 
+                    User.UserName, UrlList);
                 return "success";
             }
             catch (Exception ex)
@@ -120,7 +122,6 @@ namespace CrimeBusters.WebApp.Models.Report
                 int oMessage = reader.GetOrdinal("Message");
                 int oLatitude = reader.GetOrdinal("Latitude");
                 int oLongitude = reader.GetOrdinal("Longitude");
-                int oResourceUrl = reader.GetOrdinal("ResourceUrl");
                 int oTimeStamp = reader.GetOrdinal("TimeStamp");
                 int oUserName = reader.GetOrdinal("UserName");
                 int oFirstName = reader.GetOrdinal("FirstName");
@@ -133,7 +134,7 @@ namespace CrimeBusters.WebApp.Models.Report
 
                 while (reader.Read())
                 {
-                    reports.Add(new Report
+                    Report report = new Report
                     {
                         ReportId = Convert.ToInt32(reader[oReportId]),
                         ReportType = reader[oReportType].ToString(),
@@ -141,9 +142,8 @@ namespace CrimeBusters.WebApp.Models.Report
                         Message = reader[oMessage].ToString(),
                         Latitude = reader[oLatitude].ToString(),
                         Longitude = reader[oLongitude].ToString(),
-                        ResourceUrl = reader[oResourceUrl].ToString(),
                         DateReported = Convert.ToDateTime(reader[oTimeStamp]),
-                        User = new User 
+                        User = new User
                         {
                             UserName = reader[oUserName].ToString(),
                             FirstName = reader[oFirstName].ToString(),
@@ -154,7 +154,17 @@ namespace CrimeBusters.WebApp.Models.Report
                             Address = reader[oAddress].ToString(),
                             ZipCode = reader[oZipCode].ToString()
                         }
-                    });
+                    };
+
+                    for (int i = 1; i <= 5; i++)
+                    {
+                        String mediaUrl = reader["Media" + i].ToString();
+                        if (!String.IsNullOrEmpty(mediaUrl))
+                        {
+                            report.AddUrlList(mediaUrl);
+                        }
+                    }
+                    reports.Add(report);
                 }
             }
             catch (Exception)
@@ -191,7 +201,12 @@ namespace CrimeBusters.WebApp.Models.Report
         /// <param name="document">Document that implements the IDocument interface.</param>
         public void AddMedia(IDocument document)
         {
-            this.Media.Add(document);
+            _media.Add(document);
+        }
+
+        public void AddUrlList(String url)
+        {
+            _urlList.Add(url);
         }
     }
 }

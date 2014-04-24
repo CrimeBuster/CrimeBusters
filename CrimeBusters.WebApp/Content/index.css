@@ -185,7 +185,8 @@ span#loginName {
     color: orange;
 }
 
-ul.paging {
+ul.paging,
+ul.uploadedImages {
     list-style-type: none !important; 
 }
 
@@ -194,4 +195,8 @@ ul.paging li a {
     font-size: 10px;
     width: 14px !important;
     float: left;
+}
+
+ul.uploadedImages li {
+    margin-bottom: 5px;
 }
