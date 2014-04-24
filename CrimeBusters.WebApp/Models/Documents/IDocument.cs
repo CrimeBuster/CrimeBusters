@@ -9,7 +9,7 @@ namespace CrimeBusters.WebApp.Models.Documents
         HttpPostedFile File { get; set; }
         String Url { get; set; }
 
-        Boolean IsValidFile { get;  }
+        Boolean IsValidFile { get; }
 
         void Save(IContentLocator contentLocator);
     }

@@ -20,7 +20,7 @@ namespace CrimeBusters.WebApp.Models.Report
         private String _reportType;
         private List<IDocument> _media = new List<IDocument>();
         private List<String> _urlList = new List<string>();
-
+ 
         public int ReportId { get; set; }
         public ReportTypeEnum ReportTypeId { get; set; }
         public String ReportType 
@@ -62,6 +62,11 @@ namespace CrimeBusters.WebApp.Models.Report
             get { return _urlList; }
         }
 
+        /// <summary>
+        /// We do not differentiate a certain media when we dump the values in the database. 
+        /// Since we only need the MediaUrl when we retrieve the values in the database, 
+        /// </summary>
+        public List<String> MediaUrl { get; set; }
         public Report() { }
         public Report(int reportId) 
         {
@@ -143,7 +148,7 @@ namespace CrimeBusters.WebApp.Models.Report
                         Latitude = reader[oLatitude].ToString(),
                         Longitude = reader[oLongitude].ToString(),
                         DateReported = Convert.ToDateTime(reader[oTimeStamp]),
-                        User = new User
+                        User = new User 
                         {
                             UserName = reader[oUserName].ToString(),
                             FirstName = reader[oFirstName].ToString(),

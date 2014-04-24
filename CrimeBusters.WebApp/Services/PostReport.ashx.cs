@@ -69,6 +69,10 @@ namespace CrimeBusters.WebApp.Services
                     File = photo1
                 });
             }
+            else
+            {
+                report.AddMedia(null);
+            }
 
             if (photo2 != null)
             {
@@ -78,6 +82,10 @@ namespace CrimeBusters.WebApp.Services
                     Url = "~/Content/uploads/" + DateTime.Now.Ticks + "_" + fileInfo.Name,
                     File = photo2
                 });
+            }
+            else
+            {
+                report.AddMedia(null);
             }
 
             if (photo3 != null)
@@ -89,6 +97,10 @@ namespace CrimeBusters.WebApp.Services
                     File = photo3
                 });
             }
+            else
+            {
+                report.AddMedia(null);
+            }
 
             if (video != null)
             {
@@ -99,6 +111,10 @@ namespace CrimeBusters.WebApp.Services
                     File = video
                 });
             }
+            else
+            {
+                report.AddMedia(null);
+            }
 
             if (audio != null)
             {
@@ -108,6 +124,10 @@ namespace CrimeBusters.WebApp.Services
                     Url = "~/Content/uploads/" + DateTime.Now.Ticks + "_" + fileInfo.Name,
                     File = audio
                 });
+            }
+            else
+            {
+                report.AddMedia(null);
             }
         }
 

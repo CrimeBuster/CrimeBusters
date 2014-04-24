@@ -9,7 +9,7 @@ $(function () {
 
 	$(document).on("click", "a.viewUploadedMedia", function (e) {
 	    e.preventDefault();
-
+	    
 	    var mediaListUrl = $(this).nextAll("input[data-mediaUrl]:hidden");
 	    $("#uploadedImageWindow").children().remove();
 	    $("#uploadedImageWindow").append("<ul class='uploadedImages'>");
@@ -161,7 +161,7 @@ $(function () {
 
 	                    for (var i in this.UrlList) {
 	                        content += "<input type='hidden' data-mediaUrl='" + this.UrlList[i] + "' />";
-	                    }
+	                }
 	                }
 	                $.attachInfo(map, content, marker);
 	            });
