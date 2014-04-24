@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Web.UI.WebControls;
 using CrimeBusters.WebApp.Models.DAL;
 using CrimeBusters.WebApp.Models.Documents;
 using CrimeBusters.WebApp.Models.Users;
@@ -17,6 +18,8 @@ namespace CrimeBusters.WebApp.Models.Report
     public class Report
     {
         private String _reportType;
+        private readonly List<IDocument> _media = new List<IDocument>();
+ 
         public int ReportId { get; set; }
         public ReportTypeEnum ReportTypeId { get; set; }
         public String ReportType 
@@ -50,7 +53,10 @@ namespace CrimeBusters.WebApp.Models.Report
             }
         }
         public IUser User { get; set; }
-        public IDocument Photo { get; set; }
+        public List<IDocument> Media 
+        {
+            get { return _media; }
+        }
 
         public Report() { }
         public Report(int reportId) 
@@ -75,28 +81,20 @@ namespace CrimeBusters.WebApp.Models.Report
         /// Creates a report that will be saved to the database.
         /// </summary>
         /// <returns>success for successful insert, else will return the error message.</returns>
-        public string CreateReport(HttpPostedFile photo, IContentLocator contentLocator) 
+        public string CreateReport(IContentLocator contentLocator) 
         {
-            if (photo != null)
+            var resourceUrlList = new List<string>();
+            foreach (var document in Media.Where(document => document != null))
             {
-                // Workaround for local showing full path whereas when deployed to the live site, 
-                // only the actual filename exists.
-                FileInfo fileInfo = new FileInfo(photo.FileName);
-
-                this.ResourceUrl = "~/Content/uploads/" + DateTime.Now.Ticks + "_" + fileInfo.Name;
-                this.Photo = new Photo
-                {
-                    Url = ResourceUrl,
-                    File = photo
-                };
-                this.Photo.Save(contentLocator);
+                resourceUrlList.Add(document.Url);
+                document.Save(contentLocator);
             }
 
             try
             {
-                ReportsDAO.CreateReport(this.ReportTypeId, this.Message, 
-                    this.Latitude, this.Longitude, this.Location, this.ResourceUrl, 
-                    this.DateReported, this.User.UserName);
+                ReportsDAO.CreateReport(ReportTypeId, Message, 
+                    Latitude, Longitude, Location, ResourceUrl, 
+                    DateReported, User.UserName, resourceUrlList);
                 return "success";
             }
             catch (Exception ex)
@@ -185,6 +183,15 @@ namespace CrimeBusters.WebApp.Models.Report
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Adds a media to the list of media associated to a report.
+        /// </summary>
+        /// <param name="document">Document that implements the IDocument interface.</param>
+        public void AddMedia(IDocument document)
+        {
+            this.Media.Add(document);
         }
     }
 }

@@ -132,8 +132,10 @@
     </Compile>
     <Compile Include="Models\DAL\ConnectionManager.cs" />
     <Compile Include="Models\DAL\LoginDAO.cs" />
+    <Compile Include="Models\Documents\Audio.cs" />
     <Compile Include="Models\Documents\IDocument.cs" />
     <Compile Include="Models\Documents\Photo.cs" />
+    <Compile Include="Models\Documents\Video.cs" />
     <Compile Include="Models\Login\Login.cs" />
     <Compile Include="Models\Users\IUser.cs" />
     <Compile Include="Models\DAL\ReportsDAO.cs" />

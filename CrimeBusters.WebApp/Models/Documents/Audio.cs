@@ -1,27 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.Security;
-using System.Xml.Linq;
 using CrimeBusters.WebApp.Models.Util;
 
 namespace CrimeBusters.WebApp.Models.Documents
 {
-    public class Photo : IDocument
+    public class Audio : IDocument
     {
-        /// <summary>
-        /// The actual file posted.
-        /// </summary>
         public HttpPostedFile File { get; set; }
-        /// <summary>
-        /// Relative URL that we will save to the database.
-        /// </summary>
         public string Url { get; set; }
-        /// <summary>
-        /// Determines whether the HttpPostedFile uploaded is a valid file.
-        /// </summary>
+
         public bool IsValidFile
         {
             get
@@ -31,10 +22,8 @@ namespace CrimeBusters.WebApp.Models.Documents
                 {
                     switch (extension.ToLower())
                     {
-                        case ".gif":
-                        case ".png":
-                        case ".jpg":
-                        case ".jpeg":
+                        case ".mp3":
+                        case ".wav":
                             return true;
                         default:
                             return false;
@@ -45,13 +34,13 @@ namespace CrimeBusters.WebApp.Models.Documents
         }
 
         /// <summary>
-        /// Saves the photo to the file system.
+        /// Saves the Audio to the file system
         /// </summary>
         public void Save(IContentLocator contentLocator)
         {
             if (!this.IsValidFile)
             {
-                throw new Exception("Invalid file type. Can only accept gif, png, jpg and jpeg extensions.");
+                throw new Exception("Invalid file type. Can only accept mp3 and wav extensions.");
             }
 
             String filePath = contentLocator.GetPath(this.Url);

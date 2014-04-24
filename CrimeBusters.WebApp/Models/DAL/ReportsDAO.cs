@@ -1,4 +1,6 @@
-﻿using CrimeBusters.WebApp.Models.Report;
+﻿using System.Collections.Generic;
+using System.Security.Policy;
+using CrimeBusters.WebApp.Models.Report;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -12,7 +14,7 @@ namespace CrimeBusters.WebApp.Models.DAL
     {
         public static void CreateReport(ReportTypeEnum reportTypeId, String message, 
             String latitude, String longitude, String location, string resourceUrl, DateTime dateReported,
-            String userName) 
+            String userName, List<String> resourceUrlList) 
         { 
             using (SqlConnection connection = ConnectionManager.GetConnection()) 
             {
@@ -23,9 +25,13 @@ namespace CrimeBusters.WebApp.Models.DAL
                 command.Parameters.AddWithValue("@Latitude", latitude);
                 command.Parameters.AddWithValue("@Longitude", longitude);
                 command.Parameters.AddWithValue("@Location", location);
-                command.Parameters.AddWithValue("@ResourceUrl", resourceUrl);
                 command.Parameters.AddWithValue("@DateReported", dateReported);
                 command.Parameters.AddWithValue("@UserName", userName);
+
+                for (int i = 1; i <= resourceUrlList.Count; i++)
+                {
+                    command.Parameters.AddWithValue("@Media" + i, resourceUrlList[i - 1]);
+                }
 
                 command.ExecuteNonQuery();
             }

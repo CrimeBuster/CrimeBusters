@@ -57,7 +57,7 @@ namespace CrimeBusters.WebApp.Models.Login
                     CreateUserDetails();
                     SendVerificationEmail(newUser.ProviderUserKey.ToString(), contentLocator);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {                    
                     return MembershipCreateStatus.UserRejected;
                 }

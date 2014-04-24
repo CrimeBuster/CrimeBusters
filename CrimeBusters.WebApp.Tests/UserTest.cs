@@ -85,12 +85,6 @@ namespace CrimeBusters.WebApp.Tests
             String expectedResult = String.Empty;
             try
             {
-                Object j = TestContext.DataRow["FirstName"];
-                if (j == null)
-                {
-                    String x;
-                }
-
                 String firstName = TestContext.DataRow["FirstName"].ToString();
                 String lastName = TestContext.DataRow["LastName"].ToString();
                 String gender = TestContext.DataRow["Gender"].ToString();

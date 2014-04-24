@@ -26,7 +26,7 @@ namespace CrimeBusters.WebApp.Tests
                "University of Illinois Campus",
                DateTime.UtcNow,
                new User("test.user"));
-            _testReport.CreateReport(null, null);
+            _testReport.CreateReport(null);
         }
 
         [TestCleanup]
@@ -60,7 +60,7 @@ namespace CrimeBusters.WebApp.Tests
 
             Report report = new Report(reportTypeId, message, latitude,
                 longitude, location, dateReported, user);
-            string actualResult = report.CreateReport(null, new TestContentLocator());
+            string actualResult = report.CreateReport(new TestContentLocator());
             Assert.IsTrue(actualResult.Contains(expectedResult), actualResult);
         }
 
@@ -75,7 +75,7 @@ namespace CrimeBusters.WebApp.Tests
                 "University of Illinois Campus",
                 DateTime.UtcNow,
                 new User("test.user"));
-            string result = report.CreateReport(null, null);
+            string result = report.CreateReport(null);
        
             Assert.IsTrue(result.Equals("success"), result);
         }
