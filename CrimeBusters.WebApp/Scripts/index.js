@@ -7,14 +7,21 @@ $(function () {
 	var map = $.getMap();
 	$.plotUsersOnMap(map);
 
-	$(document).on("click", "a[data-pictureurl]", function (e) {
+	$(document).on("click", "a[data-mediaUrl]", function (e) {
 	    e.preventDefault();
 	    
-	    var pictureUrl = $(this).attr("data-pictureurl");
-	    $("img", "#uploadedImageWindow").attr("src", pictureUrl.substring(2));
+	    var mediaUrl = $(this).attr("data-mediaUrl");
 
-	    $("#uploadedImageWindow").dialog({
-	        title: "Uploaded Image",
+        //if (mediaUrl)
+
+	    //<img alt="uploaded image" src="" height="400" width="300" />
+
+
+
+	    $("img", "#uploadedMediaWindow").attr("src", pictureUrl.substring(2));
+
+	    $("#uploadedMediaWindow").dialog({
+	        title: "Uploaded Media",
 	        show: "fade",
 	        hide: "clip",
 	        modal: true,
@@ -142,9 +149,11 @@ $(function () {
                                         "</ul>" +
                                   "</div>";
 
-	                if (this.ResourceUrl != "") {
-	                    content += "<a data-pictureurl='" + this.ResourceUrl
-                            + "' href='#'>View Uploaded Picture</a>";
+	                for (var i in this.Media) {
+	                    content +=
+                            "<a data-mediaUrl='" + this.Media[i].Url + "' href='#'>" +
+                                "Media " + i + 
+	                        + "</a> ";
 	                }
 	                $.attachInfo(map, content, marker);
 	            });

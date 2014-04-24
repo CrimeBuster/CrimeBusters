@@ -11,7 +11,9 @@
                 e.preventDefault();
 
                 var formData = new FormData();
-                formData.append("photo", $("input#uploadPicFile").get(0).files[0]);
+                formData.append("photo1", $("input#uploadPicFile").get(0).files[0]);
+                formData.append("photo2", $("input#uploadPicFile").get(0).files[0]);
+                formData.append("photo3", $("input#uploadPicFile").get(0).files[0]);
                 formData.append("lat", $("input#lat").val());
                 formData.append("lng", $("input#lng").val());
                 formData.append("location", $("input#location").val());

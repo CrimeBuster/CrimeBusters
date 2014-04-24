@@ -35,8 +35,8 @@
             </div>
             <div id="map"></div>
         </div>
-        <div id="uploadedImageWindow" style="display: none">
-            <img alt="uploaded image" src="" height="400" width="300" />
+        <div id="uploadedMediaWindow" style="display: none">
+            
         </div>
         <div id="reportsDashboard" style="display: none"></div>
     </form>

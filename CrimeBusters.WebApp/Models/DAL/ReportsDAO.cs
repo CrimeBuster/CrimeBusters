@@ -13,8 +13,9 @@ namespace CrimeBusters.WebApp.Models.DAL
     public class ReportsDAO
     {
         public static void CreateReport(ReportTypeEnum reportTypeId, String message, 
-            String latitude, String longitude, String location, string resourceUrl, DateTime dateReported,
-            String userName, List<String> resourceUrlList) 
+            String latitude, String longitude, String location, DateTime dateReported,
+            String userName, String photo1Url, String photo2Url, String photo3Url, 
+            String videoUrl, String audioUrl) 
         { 
             using (SqlConnection connection = ConnectionManager.GetConnection()) 
             {
@@ -27,11 +28,11 @@ namespace CrimeBusters.WebApp.Models.DAL
                 command.Parameters.AddWithValue("@Location", location);
                 command.Parameters.AddWithValue("@DateReported", dateReported);
                 command.Parameters.AddWithValue("@UserName", userName);
-
-                for (int i = 1; i <= resourceUrlList.Count; i++)
-                {
-                    command.Parameters.AddWithValue("@Media" + i, resourceUrlList[i - 1]);
-                }
+                command.Parameters.AddWithValue("@Photo1", photo1Url);
+                command.Parameters.AddWithValue("@Photo2", photo2Url);
+                command.Parameters.AddWithValue("@Photo3", photo3Url);
+                command.Parameters.AddWithValue("@Video", videoUrl);
+                command.Parameters.AddWithValue("@Audio", audioUrl);
 
                 command.ExecuteNonQuery();
             }
