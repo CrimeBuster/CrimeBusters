@@ -27,12 +27,12 @@ namespace CrimeBusters.WebApp.Models.DAL
                 command.Parameters.AddWithValue("@Location", location);
                 command.Parameters.AddWithValue("@DateReported", dateReported);
                 command.Parameters.AddWithValue("@UserName", userName);
-                command.Parameters.AddWithValue("@Photo1", photo1Url);
-                command.Parameters.AddWithValue("@Photo2", photo2Url);
-                command.Parameters.AddWithValue("@Photo3", photo3Url);
-                command.Parameters.AddWithValue("@Video", videoUrl);
-                command.Parameters.AddWithValue("@Audio", audioUrl);
-
+                
+                for (int i = 1; i <= resourceUrlList.Count; i++)
+                {
+                    command.Parameters.AddWithValue("@Media" + i, resourceUrlList[i - 1]);
+                }
+ 
                 command.ExecuteNonQuery();
             }
         }
