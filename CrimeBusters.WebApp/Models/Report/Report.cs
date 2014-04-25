@@ -127,6 +127,7 @@ namespace CrimeBusters.WebApp.Models.Report
                 int oMessage = reader.GetOrdinal("Message");
                 int oLatitude = reader.GetOrdinal("Latitude");
                 int oLongitude = reader.GetOrdinal("Longitude");
+                int oLocation = reader.GetOrdinal("Location");
                 int oTimeStamp = reader.GetOrdinal("TimeStamp");
                 int oUserName = reader.GetOrdinal("UserName");
                 int oFirstName = reader.GetOrdinal("FirstName");
@@ -147,6 +148,7 @@ namespace CrimeBusters.WebApp.Models.Report
                         Message = reader[oMessage].ToString(),
                         Latitude = reader[oLatitude].ToString(),
                         Longitude = reader[oLongitude].ToString(),
+                        Location = reader[oLocation].ToString(),
                         DateReported = Convert.ToDateTime(reader[oTimeStamp]),
                         User = new User 
                         {

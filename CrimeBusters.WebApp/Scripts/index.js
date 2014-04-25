@@ -153,6 +153,7 @@ $(function () {
                                             "<li>Address: " + this.User.Address + "</li>" +
                                             "<li>Zip Code: " + this.User.ZipCode + "</li>" +
                                             "<li>Current Location: " + marker.getPosition().toString() + "</li>" +
+                                            "<li>Location: " + this.Location + "</li>" +
                                         "</ul>" +
                                   "</div>";
 
@@ -243,6 +244,7 @@ $(function () {
             "<th scope='col'>Address</th>" +
             "<th scope='col'>Zip Code</th>" +
             "<th scope='col'>Coordinates</th>" +
+            "<th scope='col'>Location</th>" +
             "<th scope='col'>Date Reported</th>" +
             "</tr></thead><tbody>");
 
@@ -271,6 +273,7 @@ $(function () {
                 subReport.User.Address + "</td><td>" +
                 subReport.User.ZipCode + "</td><td>" +
                 subReport.Latitude + "," + subReport.Longitude + "</td><td>" +
+                subReport.Location + "</td><td>" +
                 tst.toLocaleString() + "</td></tr>");
         }
 
