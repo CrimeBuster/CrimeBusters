@@ -35,12 +35,7 @@
             </div>
             <div id="map"></div>
         </div>
-<<<<<<< HEAD
-        <div id="uploadedImageWindow" style="display: none">
-=======
         <div id="uploadedMediaWindow" style="display: none">
-            
->>>>>>> cfd836d59ac91cd73aeb3537a8f4a3e4b552a26b
         </div>
         <div id="reportsDashboard" style="display: none"></div>
     </form>

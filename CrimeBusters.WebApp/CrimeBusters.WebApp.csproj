@@ -72,6 +72,7 @@
     <Content Include="Services\UpdateProfile.ashx" />
     <Content Include="Services\DeleteUser.ashx" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Services\DownloadFile.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -158,6 +159,9 @@
     </Compile>
     <Compile Include="Services\DeleteUser.ashx.cs">
       <DependentUpon>DeleteUser.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\DownloadFile.ashx.cs">
+      <DependentUpon>DownloadFile.ashx</DependentUpon>
     </Compile>
     <Compile Include="Services\GetUserInfo.ashx.cs">
       <DependentUpon>GetUserInfo.ashx</DependentUpon>
