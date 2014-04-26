@@ -61,11 +61,6 @@ namespace CrimeBusters.WebApp.Tests
 
             Report report = new Report(reportTypeId, message, latitude,
                 longitude, location, dateReported, user);
-            report.AddMedia(new Photo {Url = "sss"});
-            report.AddMedia(null);
-            report.AddMedia(null);
-            report.AddMedia(null); 
-            report.AddMedia(null);
             string actualResult = report.CreateReport(new TestContentLocator());
             Assert.IsTrue(actualResult.Contains(expectedResult), actualResult);
         }

@@ -186,7 +186,7 @@ span#loginName {
 }
 
 ul.paging,
-ul.uploadedImages {
+ul.uploadedMedia {
     list-style-type: none !important; 
 }
 
@@ -197,6 +197,6 @@ ul.paging li a {
     float: left;
 }
 
-ul.uploadedImages li {
+ul.uploadedMedia li {
     margin-bottom: 5px;
 }

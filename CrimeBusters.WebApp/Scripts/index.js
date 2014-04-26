@@ -11,23 +11,36 @@ $(function () {
 	    e.preventDefault();
 	    
 	    var mediaListUrl = $(this).nextAll("input[data-mediaUrl]:hidden");
-	    $("#uploadedImageWindow").children().remove();
-	    $("#uploadedImageWindow").append("<ul class='uploadedImages'>");
+	    $("#uploadedMediaWindow").children().remove();
+	    $("#uploadedMediaWindow").append("<ul class='uploadedMedia'>");
 	    $.each(mediaListUrl, function () {
 	        var mediaUrl = $(this).attr("data-mediaUrl");
 	        if ($.isImage(mediaUrl)) {
-	            $("ul.uploadedImages", "#uploadedImageWindow").append(
+	            $("ul.uploadedMedia", "#uploadedMediaWindow").append(
                     "<li><img src='" + mediaUrl.substr(2) + "' alt='Uploaded Image' height='400' width='300' /></li>");
 	        } else if ($.isVideo(mediaUrl)) {
-
+	            $("ul.uploadedMedia", "#uploadedMediaWindow").append(
+                    "<video width='320' height='240' controls>" + 
+                        "<source src='" + mediaUrl.substr(2) + "' type='video/mp4'>" +
+                        "<source src='" + mediaUrl.substr(2) + "' type='video/ogg'>" +
+                        "<source src='" + mediaUrl.substr(2) + "' type='video/webm'>" +
+                        "Your browser does not support the video tag.</video>"
+	            );
 	        } else if ($.isAudio(mediaUrl)) {
-
+	            //$("ul.uploadedMedia", "#uploadedMediaWindow").append(
+                //    "<audio controls>" + 
+                //        "<source src='" + mediaUrl.substr(2) + "' type='audio/mpeg'>" +
+                //        "<source src='" + mediaUrl.substr(2) + "' type='audio/wav'>" +
+                //        "Your browser does not support the audio tag.</audio>"
+	            //);
+	            $("ul.uploadedMedia", "#uploadedMediaWindow").append("<a data-fileUrl='~/" + mediaUrl.substr(2) + "' href='#' >Download Audio File</a>");
 	        }
 	    });
-	    $("#uploadedImageWindow").append("</ul>");
 
-	    $("#uploadedImageWindow").dialog({
-	        title: "Uploaded Image",
+	    $("#uploadedMediaWindow").append("</ul>");
+
+	    $("#uploadedMediaWindow").dialog({
+	        title: "Uploaded Media",
 	        show: "fade",
 	        hide: "clip",
 	        modal: true,
@@ -35,6 +48,13 @@ $(function () {
             minheight: "500px"
 	    });
 	});
+
+    $(document).on("click", "a[data-fileUrl]", function(e) {
+        e.preventDefault();
+
+        window.location.href = "../Services/DownloadFile.ashx?file="
+            + encodeURIComponent($(this).attr("data-fileUrl"));
+    });
 
 	$("a[data-reporttype]", "ul.dropdown-menu").on("click", function(e) {
 	    e.preventDefault();
@@ -395,7 +415,8 @@ $(function () {
 
     $.isAudio = function (audioUrl) {
         if (audioUrl.indexOf(".mp3") > 0 ||
-            audioUrl.indexOf(".wav") > 0) {
+            audioUrl.indexOf(".wav") > 0 ||
+            audioUrl.indexOf(".3gp") > 0) {
             return true;
         } else {
             return false;

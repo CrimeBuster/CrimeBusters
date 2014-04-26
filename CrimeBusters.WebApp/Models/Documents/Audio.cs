@@ -24,6 +24,7 @@ namespace CrimeBusters.WebApp.Models.Documents
                     {
                         case ".mp3":
                         case ".wav":
+                        case ".3gp":
                             return true;
                         default:
                             return false;

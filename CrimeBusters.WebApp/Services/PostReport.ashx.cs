@@ -65,7 +65,7 @@ namespace CrimeBusters.WebApp.Services
                 FileInfo fileInfo = new FileInfo(photo1.FileName);
                 report.AddMedia(new Photo
                 {
-                    Url = "~/Content/uploads/" + DateTime.Now.Ticks + "_" + fileInfo.Name,
+                    Url = "~/Content/uploads/" + DateTime.Now.Ticks + "1_" + fileInfo.Name,
                     File = photo1
                 });
             }
@@ -79,7 +79,7 @@ namespace CrimeBusters.WebApp.Services
                 FileInfo fileInfo = new FileInfo(photo2.FileName);
                 report.AddMedia(new Photo
                 {
-                    Url = "~/Content/uploads/" + DateTime.Now.Ticks + "_" + fileInfo.Name,
+                    Url = "~/Content/uploads/" + DateTime.Now.Ticks + "2_" + fileInfo.Name,
                     File = photo2
                 });
             }
@@ -93,7 +93,7 @@ namespace CrimeBusters.WebApp.Services
                 FileInfo fileInfo = new FileInfo(photo3.FileName);
                 report.AddMedia(new Photo
                 {
-                    Url = "~/Content/uploads/" + DateTime.Now.Ticks + "_" + fileInfo.Name,
+                    Url = "~/Content/uploads/" + DateTime.Now.Ticks + "3_" + fileInfo.Name,
                     File = photo3
                 });
             }
@@ -107,7 +107,7 @@ namespace CrimeBusters.WebApp.Services
                 FileInfo fileInfo = new FileInfo(video.FileName);
                 report.AddMedia(new Video
                 {
-                    Url = "~/Content/uploads/" + DateTime.Now.Ticks + "_" + fileInfo.Name,
+                    Url = "~/Content/uploads/" + DateTime.Now.Ticks + "4_" + fileInfo.Name,
                     File = video
                 });
             }
@@ -121,7 +121,7 @@ namespace CrimeBusters.WebApp.Services
                 FileInfo fileInfo = new FileInfo(audio.FileName);
                 report.AddMedia(new Audio
                 {
-                    Url = "~/Content/uploads/" + DateTime.Now.Ticks + "_" + fileInfo.Name,
+                    Url = "~/Content/uploads/" + DateTime.Now.Ticks + "5_" + fileInfo.Name,
                     File = audio
                 });
             }
