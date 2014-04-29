@@ -73,6 +73,7 @@
     <Content Include="Services\DeleteUser.ashx" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Services\DownloadFile.ashx" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
