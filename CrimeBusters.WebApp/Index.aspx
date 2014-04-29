@@ -36,7 +36,7 @@
             <div id="map"></div>
         </div>
 
-        <div id="uploadedImageWindow" style="display: none">
+        <div id="uploadedMediaWindow" style="display: none">
 
         </div>
         <div id="reportsDashboard" style="display: none"></div>
@@ -46,7 +46,5 @@
     <script src="Scripts/jquery-ui-1.10.4.custom.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/index.js"></script>
-    <script src="Scripts/jquery-latest.js"></script> 
-    <script src="Scripts/jquery.tablesorter.js"></script> 
 </body>
 </html>
