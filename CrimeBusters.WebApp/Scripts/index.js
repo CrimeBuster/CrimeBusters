@@ -9,44 +9,8 @@ $(function () {
 
 	$(document).on("click", "a.viewUploadedMedia", function (e) {
 	    e.preventDefault();
-	    
 	    var mediaListUrl = $(this).nextAll("input[data-mediaUrl]:hidden");
-	    $("#uploadedMediaWindow").children().remove();
-	    $("#uploadedMediaWindow").append("<ul class='uploadedMedia'>");
-	    $.each(mediaListUrl, function () {
-	        var mediaUrl = $(this).attr("data-mediaUrl");
-	        if ($.isImage(mediaUrl)) {
-	            $("ul.uploadedMedia", "#uploadedMediaWindow").append(
-                    "<li><img src='" + mediaUrl.substr(2) + "' alt='Uploaded Image' height='400' width='300' /></li>");
-	        } else if ($.isVideo(mediaUrl)) {
-	            $("ul.uploadedMedia", "#uploadedMediaWindow").append(
-                    "<video width='320' height='240' controls>" + 
-                        "<source src='" + mediaUrl.substr(2) + "' type='video/mp4'>" +
-                        "<source src='" + mediaUrl.substr(2) + "' type='video/ogg'>" +
-                        "<source src='" + mediaUrl.substr(2) + "' type='video/webm'>" +
-                        "Your browser does not support the video tag.</video>"
-	            );
-	        } else if ($.isAudio(mediaUrl)) {
-	            //$("ul.uploadedMedia", "#uploadedMediaWindow").append(
-                //    "<audio controls>" + 
-                //        "<source src='" + mediaUrl.substr(2) + "' type='audio/mpeg'>" +
-                //        "<source src='" + mediaUrl.substr(2) + "' type='audio/wav'>" +
-                //        "Your browser does not support the audio tag.</audio>"
-	            //);
-	            $("ul.uploadedMedia", "#uploadedMediaWindow").append("<a data-fileUrl='~/" + mediaUrl.substr(2) + "' href='#' >Download Audio File</a>");
-	        }
-	    });
-
-	    $("#uploadedMediaWindow").append("</ul>");
-
-	    $("#uploadedMediaWindow").dialog({
-	        title: "Uploaded Media",
-	        show: "fade",
-	        hide: "clip",
-	        modal: true,
-	        width: "402px",
-            minheight: "500px"
-	    });
+	    $.showUploadedMedia(mediaListUrl);
 	});
 
     $(document).on("click", "a[data-fileUrl]", function(e) {
@@ -83,8 +47,26 @@ $(function () {
         var $tr = $(this);
 
         if ($tr.attr("data-hasCoordinates") == 0) {
-            $.alert("No Location for Report",
-                "Cannot locate the report in the map since it has no associated location.");
+            var buttons = {
+                "Close": function() {
+                    $(this).dialog("close");
+                }
+            };
+            var mediaListUrl = $tr.find("td:last").find("input:hidden");
+
+            if (mediaListUrl.length > 0) {
+                buttons["View Uploaded Media"] = function () {
+                    $.showUploadedMedia(mediaListUrl);
+                }
+            }
+
+            $("<p>Cannot locate the report on the map without coordinates.</p>").dialog({
+                title: "No Coordinates Found",
+                modal: true,
+                width: 500,
+                buttons: buttons
+            });
+
             return;
         }
 
@@ -182,7 +164,7 @@ $(function () {
 
 	                    for (var i in this.UrlList) {
 	                        content += "<input type='hidden' data-mediaUrl='" + this.UrlList[i] + "' />";
-	                }
+	                    }
 	                }
 	                $.attachInfo(map, content, marker);
 	            });
@@ -281,6 +263,13 @@ $(function () {
             var offset = -((new Date()).getTimezoneOffset() / 60);
             tst.setHours(tst.getHours() + offset);
 
+            var noLocMediaUrls = "";
+            if (isNaN(parseFloat(subReport.Latitude)) && subReport.UrlList.length != 0) {
+                for (var j in subReport.UrlList) {
+                    noLocMediaUrls += "<input type='hidden' data-mediaUrl='" + subReport.UrlList[j] + "' />";
+                }
+            }
+
             $("#reportsDashboard tbody").append(
                 "<tr data-reportId='" + subReport.ReportId + "' data-reportType='" + subReport.ReportType +
                     "' data-markerId='" + i + "' data-hasCoordinates='" + (isNaN(parseFloat(subReport.Latitude)) ? 0 : 1) + "'><td>" +
@@ -294,7 +283,7 @@ $(function () {
                 subReport.User.ZipCode + "</td><td>" +
                 subReport.Latitude + "," + subReport.Longitude + "</td><td>" +
                 subReport.Location + "</td><td>" +
-                tst.toLocaleString() + "</td></tr>");
+                tst.toLocaleString() + noLocMediaUrls + "</td></tr>");
         }
 
         $("#reportsDashboard").append("</tbody></table>");
@@ -308,6 +297,45 @@ $(function () {
             width: 1200
         });
     };
+
+    $.showUploadedMedia = function (mediaListUrl) {
+        $("#uploadedMediaWindow").children().remove();
+        $("#uploadedMediaWindow").append("<ul class='uploadedMedia'>");
+        $.each(mediaListUrl, function () {
+            var mediaUrl = $(this).attr("data-mediaUrl");
+            if ($.isImage(mediaUrl)) {
+                $("ul.uploadedMedia", "#uploadedMediaWindow").append(
+                    "<li><img src='" + mediaUrl.substr(2) + "' alt='Uploaded Image' height='400' width='300' /></li>");
+            } else if ($.isVideo(mediaUrl)) {
+                $("ul.uploadedMedia", "#uploadedMediaWindow").append(
+                    "<video width='320' height='240' controls>" +
+                        "<source src='" + mediaUrl.substr(2) + "' type='video/mp4'>" +
+                        "<source src='" + mediaUrl.substr(2) + "' type='video/ogg'>" +
+                        "<source src='" + mediaUrl.substr(2) + "' type='video/webm'>" +
+                        "Your browser does not support the video tag.</video>"
+	            );
+            } else if ($.isAudio(mediaUrl)) {
+                //$("ul.uploadedMedia", "#uploadedMediaWindow").append(
+                //    "<audio controls>" + 
+                //        "<source src='" + mediaUrl.substr(2) + "' type='audio/mpeg'>" +
+                //        "<source src='" + mediaUrl.substr(2) + "' type='audio/wav'>" +
+                //        "Your browser does not support the audio tag.</audio>"
+                //);
+                $("ul.uploadedMedia", "#uploadedMediaWindow").append("<a data-fileUrl='~/" + mediaUrl.substr(2) + "' href='#' >Download Audio File</a>");
+            }
+        });
+
+        $("#uploadedMediaWindow").append("</ul>");
+
+        $("#uploadedMediaWindow").dialog({
+            title: "Uploaded Media",
+            show: "fade",
+            hide: "clip",
+            modal: true,
+            width: "402px",
+            minheight: "500px"
+        });
+    }
 
     $.addPagination = function (total, maxRows, domToAppend) {
         var totalPage;
@@ -377,18 +405,6 @@ $(function () {
 
     $.midpoint = function(imin, imax) {
         return imin + parseInt(parseInt(imax - imin) / 2);
-    };
-
-    $.alert = function (title, text) {
-        $("<p>" + text + "</p>").dialog({
-            title: title,
-            modal: true,
-            buttons: {
-                "OK": function () {
-                    $(this).dialog("close");
-                }
-            }
-        });
     };
 
     $.isImage = function(imageUrl) {
