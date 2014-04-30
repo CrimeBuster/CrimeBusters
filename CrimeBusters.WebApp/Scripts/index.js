@@ -187,8 +187,8 @@ $(function () {
 	                $.attachInfo(map, content, marker);
 	            });
 	        },
-	        error: function () {
-	            alert("error");
+	        error: function (xhr, textStatus, errorThrown) {
+	            alert("Error: " + errorThrown);
 	        }
 	    });
 	};
