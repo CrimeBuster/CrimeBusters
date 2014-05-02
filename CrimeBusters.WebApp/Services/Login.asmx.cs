@@ -19,6 +19,10 @@ namespace CrimeBusters.WebApp.Services
     [System.Web.Script.Services.ScriptService]
     public class Login : System.Web.Services.WebService
     {
+
+        /// <summary>
+        /// Validate User login and set authenthication cookie and returns error message if not policemann
+        /// </summary>
         [WebMethod]
         public string ValidateUser(string userName, string password, bool rememberMe)
         {
@@ -32,6 +36,10 @@ namespace CrimeBusters.WebApp.Services
             return ShowMeaningfulErrorMessage(userName, user);
         }
 
+
+        /// <summary>
+        /// Log out User and reset the cookie
+        /// </summary>
         [WebMethod]
         public string LogOutUser()
         {
@@ -53,6 +61,9 @@ namespace CrimeBusters.WebApp.Services
             
         }
 
+        /// <summary>
+        /// Return Error Message based on User Error status
+        /// </summary>
         private static string ShowMeaningfulErrorMessage(string userName, MembershipUser user)
         {
             if (user == null)

@@ -14,7 +14,9 @@ namespace CrimeBusters.WebApp.Services
     /// </summary>
     public class DeleteUser : IHttpHandler
     {
-
+        /// <summary>
+        /// Process request on deletion of user based on HTTP context, returns message upon success
+        /// </summary>
         public void ProcessRequest(HttpContext context)
         {
             HttpRequest request = context.Request;

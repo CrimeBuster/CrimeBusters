@@ -10,6 +10,9 @@ namespace CrimeBusters.WebApp.Services
     /// </summary>
     public class UpdateProfile : IHttpHandler
     {
+        /// <summary>
+        /// Process Request that updates user info given the HttpContext, and returns confirmation message upon successful completion
+        /// </summary>
         public void ProcessRequest(HttpContext context)
         {
             HttpRequest request = context.Request;

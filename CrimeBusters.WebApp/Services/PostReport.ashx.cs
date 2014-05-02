@@ -16,6 +16,9 @@ namespace CrimeBusters.WebApp.Services
     /// </summary>
     public class PostReport : IHttpHandler
     {
+        /// <summary>
+        /// Process Request saves the user report including photos,video, and audio given the HttpContext
+        /// </summary>
         public void ProcessRequest(HttpContext context)
         {
             HttpRequest request = context.Request;
@@ -57,6 +60,9 @@ namespace CrimeBusters.WebApp.Services
             }
         }
 
+        /// <summary>
+        /// saves the media to Disk
+        /// </summary>
         private static void AddMedia(Report report, HttpPostedFile photo1, HttpPostedFile photo2, HttpPostedFile photo3,
             HttpPostedFile video, HttpPostedFile audio)
         {

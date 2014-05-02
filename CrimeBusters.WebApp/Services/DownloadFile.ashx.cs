@@ -10,7 +10,9 @@ namespace CrimeBusters.WebApp.Services
     /// </summary>
     public class DownloadFile : IHttpHandler
     {
-
+        /// <summary>
+        /// Process Request to Download file given the HTTP context
+        /// </summary>
         public void ProcessRequest(HttpContext context)
         {
             string filePath = context.Request.QueryString["file"];
