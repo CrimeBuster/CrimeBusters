@@ -102,15 +102,12 @@
     <Content Include="Content\themes\illinoisTheme\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\Arvixe.pubxml" />
-    <Content Include="ReportsDump.aspx" />
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Services\Index.asmx" />
-    <Content Include="TestPage.aspx" />
-    <Content Include="Util.aspx" />
     <Content Include="VerifyAccount.aspx" />
     <Content Include="Web.config" />
     <Content Include="Services\PostReport.ashx" />
@@ -147,13 +144,6 @@
     <Compile Include="Models\Util\Email.cs" />
     <Compile Include="Models\Util\ContentLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReportsDump.aspx.cs">
-      <DependentUpon>ReportsDump.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ReportsDump.aspx.designer.cs">
-      <DependentUpon>ReportsDump.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Services\CreateUser.ashx.cs">
       <DependentUpon>CreateUser.ashx</DependentUpon>
     </Compile>
@@ -182,20 +172,6 @@
     </Compile>
     <Compile Include="Services\ValidateUser.ashx.cs">
       <DependentUpon>ValidateUser.ashx</DependentUpon>
-    </Compile>
-    <Compile Include="TestPage.aspx.cs">
-      <DependentUpon>TestPage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TestPage.aspx.designer.cs">
-      <DependentUpon>TestPage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Util.aspx.cs">
-      <DependentUpon>Util.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Util.aspx.designer.cs">
-      <DependentUpon>Util.aspx</DependentUpon>
     </Compile>
     <Compile Include="VerifyAccount.aspx.cs">
       <DependentUpon>VerifyAccount.aspx</DependentUpon>

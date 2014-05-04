@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
-using System.Web.Security;
-using System.Xml.Linq;
 using CrimeBusters.WebApp.Models.Util;
 
 namespace CrimeBusters.WebApp.Models.Documents
