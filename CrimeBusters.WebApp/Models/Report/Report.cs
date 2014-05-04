@@ -1,12 +1,10 @@
-﻿using System.IO;
-using CrimeBusters.WebApp.Models.DAL;
+﻿using CrimeBusters.WebApp.Models.DAL;
 using CrimeBusters.WebApp.Models.Documents;
 using CrimeBusters.WebApp.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using CrimeBusters.WebApp.Models.Util;
 
 namespace CrimeBusters.WebApp.Models.Report
@@ -17,9 +15,12 @@ namespace CrimeBusters.WebApp.Models.Report
     public class Report
     {
         private String _reportType;
+        private List<IDocument> _media = new List<IDocument>();
+        private List<String> _urlList = new List<string>();
+ 
         public int ReportId { get; set; }
         public ReportTypeEnum ReportTypeId { get; set; }
-        public string ReportType 
+        public String ReportType 
         {
             get 
             {
@@ -34,11 +35,11 @@ namespace CrimeBusters.WebApp.Models.Report
                 _reportType = value;
             }
         }
+        public String MarkerImage { get; set; }
         public String Message { get; set; }
         public String Latitude { get; set; }
         public String Longitude { get; set; }
         public String Location { get; set; }
-        public String ResourceUrl { get; set; }
         public DateTime DateReported { get; set; }
         public string TimeStampString
         {
@@ -49,8 +50,20 @@ namespace CrimeBusters.WebApp.Models.Report
             }
         }
         public IUser User { get; set; }
-        public IDocument Photo { get; set; }
+        public List<IDocument> Media 
+        {
+            get { return _media; }
+        }
+        public List<String> UrlList
+        {
+            get { return _urlList; }
+        }
 
+        /// <summary>
+        /// We do not differentiate a certain media when we dump the values in the database. 
+        /// Since we only need the MediaUrl when we retrieve the values in the database, 
+        /// </summary>
+        public List<String> MediaUrl { get; set; }
         public Report() { }
         public Report(int reportId) 
         {
@@ -67,35 +80,25 @@ namespace CrimeBusters.WebApp.Models.Report
             this.Location = location;
             this.DateReported = dateReported;
             this.User = user;
-            this.ResourceUrl = "";
         }
 
         /// <summary>
         /// Creates a report that will be saved to the database.
         /// </summary>
         /// <returns>success for successful insert, else will return the error message.</returns>
-        public string CreateReport(HttpPostedFile photo, IContentLocator contentLocator) 
+        public string CreateReport(IContentLocator contentLocator) 
         {
-            if (photo != null)
+            foreach (var document in Media.Where(document => document != null))
             {
-                // Workaround for local showing full path whereas when deployed to the live site, 
-                // only the actual filename exists.
-                FileInfo fileInfo = new FileInfo(photo.FileName);
-
-                this.ResourceUrl = "~/Content/uploads/" + DateTime.Now.Ticks + "_" + fileInfo.Name;
-                this.Photo = new Photo
-                {
-                    Url = ResourceUrl,
-                    File = photo
-                };
-                this.Photo.Save(contentLocator);
+                AddUrlList(document.Url);
+                document.Save(contentLocator);
             }
 
             try
             {
-                ReportsDAO.CreateReport(this.ReportTypeId, this.Message, 
-                    this.Latitude, this.Longitude, this.Location, this.ResourceUrl, 
-                    this.DateReported, this.User.UserName);
+                ReportsDAO.CreateReport(ReportTypeId, Message, 
+                    Latitude, Longitude, Location, DateReported, 
+                    User.UserName, UrlList);
                 return "success";
             }
             catch (Exception ex)
@@ -117,10 +120,11 @@ namespace CrimeBusters.WebApp.Models.Report
             {
                 int oReportId = reader.GetOrdinal("ReportId");
                 int oReportType = reader.GetOrdinal("ReportType");
+                int oMarkerImage = reader.GetOrdinal("MarkerImage");
                 int oMessage = reader.GetOrdinal("Message");
                 int oLatitude = reader.GetOrdinal("Latitude");
                 int oLongitude = reader.GetOrdinal("Longitude");
-                int oResourceUrl = reader.GetOrdinal("ResourceUrl");
+                int oLocation = reader.GetOrdinal("Location");
                 int oTimeStamp = reader.GetOrdinal("TimeStamp");
                 int oUserName = reader.GetOrdinal("UserName");
                 int oFirstName = reader.GetOrdinal("FirstName");
@@ -133,14 +137,15 @@ namespace CrimeBusters.WebApp.Models.Report
 
                 while (reader.Read())
                 {
-                    reports.Add(new Report
+                    Report report = new Report
                     {
                         ReportId = Convert.ToInt32(reader[oReportId]),
                         ReportType = reader[oReportType].ToString(),
+                        MarkerImage = reader[oMarkerImage].ToString(),
                         Message = reader[oMessage].ToString(),
                         Latitude = reader[oLatitude].ToString(),
                         Longitude = reader[oLongitude].ToString(),
-                        ResourceUrl = reader[oResourceUrl].ToString(),
+                        Location = reader[oLocation].ToString(),
                         DateReported = Convert.ToDateTime(reader[oTimeStamp]),
                         User = new User 
                         {
@@ -153,7 +158,17 @@ namespace CrimeBusters.WebApp.Models.Report
                             Address = reader[oAddress].ToString(),
                             ZipCode = reader[oZipCode].ToString()
                         }
-                    });
+                    };
+
+                    for (int i = 1; i <= 5; i++)
+                    {
+                        String mediaUrl = reader["Media" + i].ToString();
+                        if (!String.IsNullOrEmpty(mediaUrl))
+                        {
+                            report.AddUrlList(mediaUrl);
+                        }
+                    }
+                    reports.Add(report);
                 }
             }
             catch (Exception)
@@ -182,6 +197,20 @@ namespace CrimeBusters.WebApp.Models.Report
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Adds a media to the list of media associated to a report.
+        /// </summary>
+        /// <param name="document">Document that implements the IDocument interface.</param>
+        public void AddMedia(IDocument document)
+        {
+            _media.Add(document);
+        }
+
+        public void AddUrlList(String url)
+        {
+            _urlList.Add(url);
         }
     }
 }

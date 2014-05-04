@@ -10,6 +10,9 @@ namespace CrimeBusters.WebApp.Services
     /// </summary>
     public class UpdateProfile : IHttpHandler
     {
+        /// <summary>
+        /// Process Request that updates user info given the HttpContext, and returns confirmation message upon successful completion
+        /// </summary>
         public void ProcessRequest(HttpContext context)
         {
             HttpRequest request = context.Request;
@@ -21,13 +24,13 @@ namespace CrimeBusters.WebApp.Services
             {
                 User user = new User
                 {
-                    FirstName = request.QueryString["firstName"],
-                    LastName = request.QueryString["lastName"],
-                    Gender = request.QueryString["gender"],
-                    PhoneNumber = request.QueryString["phoneNumber"],
-                    Address = request.QueryString["address"],
-                    ZipCode = request.QueryString["zipCode"],
-                    UserName = request.QueryString["userName"]
+                    FirstName = request.Form["firstName"],
+                    LastName = request.Form["lastName"],
+                    Gender = request.Form["gender"],
+                    PhoneNumber = request.Form["phoneNumber"],
+                    Address = request.Form["address"],
+                    ZipCode = request.Form["zipCode"],
+                    UserName = request.Form["userName"]
                 };
                 user.UpdateProfile();
 

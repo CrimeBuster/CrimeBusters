@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
-using System.Web.Security;
-using System.Xml.Linq;
 using CrimeBusters.WebApp.Models.Util;
 
 namespace CrimeBusters.WebApp.Models.Documents
@@ -51,7 +47,7 @@ namespace CrimeBusters.WebApp.Models.Documents
         {
             if (!this.IsValidFile)
             {
-                throw new Exception("Invalid file type.");
+                throw new Exception("Invalid file type. Can only accept gif, png, jpg and jpeg extensions.");
             }
 
             String filePath = contentLocator.GetPath(this.Url);

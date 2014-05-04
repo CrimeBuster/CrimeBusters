@@ -15,6 +15,9 @@ namespace CrimeBusters.WebApp.Services
     /// </summary>
     public class CreateUser : IHttpHandler
     {
+        /// <summary>
+        /// Process Request to create user based on HTTP context
+        /// </summary>
         public void ProcessRequest(HttpContext context)
         {
             HttpRequest request = context.Request;

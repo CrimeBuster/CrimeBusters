@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.Services;
+using System.Web.Handlers;
+
 
 namespace CrimeBusters.WebApp.Services
 {
@@ -17,6 +19,10 @@ namespace CrimeBusters.WebApp.Services
     [System.Web.Script.Services.ScriptService]
     public class Login : System.Web.Services.WebService
     {
+
+        /// <summary>
+        /// Validate User login and set authenthication cookie and returns error message if not policemann
+        /// </summary>
         [WebMethod]
         public string ValidateUser(string userName, string password, bool rememberMe)
         {
@@ -30,6 +36,34 @@ namespace CrimeBusters.WebApp.Services
             return ShowMeaningfulErrorMessage(userName, user);
         }
 
+
+        /// <summary>
+        /// Log out User and reset the cookie
+        /// </summary>
+        [WebMethod]
+        public string LogOutUser()
+        {
+            var request = HttpContext.Current.Request;
+            var response = HttpContext.Current.Response;
+            
+            FormsAuthentication.SignOut();            
+
+            // clear authentication cookie
+            if (request.Cookies[FormsAuthentication.FormsCookieName] != null)
+            {
+                HttpCookie cookie1 = new HttpCookie(FormsAuthentication.FormsCookieName, "");
+                cookie1.Expires = DateTime.Now.AddYears(-1);
+                response.Cookies.Add(cookie1);
+                return "User successfully logged out";
+            }
+            
+            return "User logout error";
+            
+        }
+
+        /// <summary>
+        /// Return Error Message based on User Error status
+        /// </summary>
         private static string ShowMeaningfulErrorMessage(string userName, MembershipUser user)
         {
             if (user == null)

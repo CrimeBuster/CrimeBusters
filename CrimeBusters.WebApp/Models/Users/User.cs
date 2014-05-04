@@ -1,4 +1,5 @@
-﻿using CrimeBusters.WebApp.Models.DAL;
+﻿using System.IO;
+using CrimeBusters.WebApp.Models.DAL;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -74,7 +75,7 @@ namespace CrimeBusters.WebApp.Models.Users
             if (this.Gender.ToUpper() != "M" 
                 && this.Gender.ToUpper() != "F")
             {
-                throw  new Exception("Invalid gender.");
+                throw  new InvalidDataException("Invalid gender");
             }
 
             UsersDAO.UpdateUserInformation(this.FirstName, 

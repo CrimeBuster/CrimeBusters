@@ -1,23 +1,79 @@
 var userCoords = [];
+var hiMarkers = [];
+var loMarkers = [];
+var reports = [];
 
 $(function () {
 	var map = $.getMap();
 	$.plotUsersOnMap(map);
 
-	$(document).on("click", "a[data-pictureurl]", function (e) {
+	$(document).on("click", "a.viewUploadedMedia", function (e) {
 	    e.preventDefault();
-	    
-	    var pictureUrl = $(this).attr("data-pictureurl");
-	    $("img", "#uploadedImageWindow").attr("src", pictureUrl.substring(2));
-
-	    $("#uploadedImageWindow").dialog({
-	        title: "Uploaded Image",
-	        show: "fade",
-	        hide: "clip",
-	        modal: true,
-	        width: "335px"
-	    });
+	    var mediaListUrl = $(this).nextAll("input[data-mediaUrl]:hidden");
+	    $.showUploadedMedia(mediaListUrl);
 	});
+
+    $(document).on("click", "a[data-fileUrl]", function(e) {
+        e.preventDefault();
+
+        window.location.href = "../Services/DownloadFile.ashx?file="
+            + encodeURIComponent($(this).attr("data-fileUrl"));
+    });
+
+	$("a[data-reporttype]", "ul.dropdown-menu").on("click", function(e) {
+	    e.preventDefault();
+	    var reportType = $(this).attr("data-reporttype");
+        $.updateMapClientSide(map, reportType);
+    });
+
+	$("#signOut").on("click", function (e) {
+	    e.preventDefault();
+	    $.logOffUser();
+	});
+
+    $("a#showReports").on("click", function(e) {
+        e.preventDefault();
+
+        $.showReports(1);
+    });
+
+    $(document).on("click", "#reportsDashboard .paging li a", function (e) {
+        e.preventDefault();
+
+        $.showReports(parseInt($(this).html()));
+    });
+
+    $(document).on("click", "#reportsDashboard tr", function () {
+        var $tr = $(this);
+
+        if ($tr.attr("data-hasCoordinates") == 0) {
+            var buttons = {
+                "Close": function() {
+                    $(this).dialog("close");
+                }
+            };
+            var mediaListUrl = $tr.find("td:last").find("input:hidden");
+
+            if (mediaListUrl.length > 0) {
+                buttons["View Uploaded Media"] = function () {
+                    $.showUploadedMedia(mediaListUrl);
+                }
+            }
+
+            $("<p>Cannot locate the report on the map without coordinates.</p>").dialog({
+                title: "No Coordinates Found",
+                modal: true,
+                width: 500,
+                buttons: buttons
+            });
+
+            return;
+        }
+
+        $("#reportsDashboard").on("dialogclose", function() {
+            $.zoomUser(map, $tr.attr("data-markerId"), $tr.attr("data-reportType"));
+        }).dialog("close");
+    });
 });
 
 (function($) {
@@ -34,6 +90,7 @@ $(function () {
 	$.plotUsersOnMap = function (map) {
 	    var coords = [];
 	    var location;
+
 	    $.ajax({
 	        type: "POST",
 	        dataType: "json",
@@ -41,23 +98,24 @@ $(function () {
 	        contentType: "application/json",
 	        url: "../Services/Index.asmx/GetReports",
 	        success: function (data) {
-	            $.each(data.d, function () {
+	            reports = data.d;
+	            $.each(data.d, function (index) {
 	                // Used to workaround the issue when 2 markers are on the same position.
 	                var lat = this.Latitude;
-	                var long = this.Longitude;
-	                var hash = lat + long;
+	                var lng = this.Longitude;
+	                var hash = lat + lng;
 
 	                hash = hash.replace(/\./g, "").replace(",", "").replace("-", "");
 
 	                // check to see if we've seen this hash before
 	                if (userCoords[hash] == null && coords[hash] == null) {
-	                    location = new google.maps.LatLng(parseFloat(lat), parseFloat(long));
+	                    location = new google.maps.LatLng(parseFloat(lat), parseFloat(lng));
 	                    // store an indicator that we've seen this point before
 	                    coords[hash] = 1;
 	                } else {
 	                    // add some randomness to this point
 	                    var newLat = parseFloat(lat) + (Math.random() - .5) / 1500;
-	                    var newLong = parseFloat(long) + (Math.random() - .5) / 1500;
+	                    var newLong = parseFloat(lng) + (Math.random() - .5) / 1500;
 
 	                    // get the coordinate object
 	                    location = new google.maps.LatLng(newLat.toFixed(6), newLong.toFixed(6));
@@ -67,8 +125,16 @@ $(function () {
 	                    position: location,
 	                    map: map,
 	                    title: this.User.UserName,
+                        icon: this.MarkerImage,
 	                    animation: google.maps.Animation.BOUNCE
 	                });
+	                marker.markerId = index;
+
+	                if (this.ReportType == "HIGH") {
+	                    hiMarkers.push(marker);
+	                } else {
+	                    loMarkers.push(marker);
+	                }
 
 	                // Shows the local time in the browser.
 	                // workaround for Safari
@@ -82,26 +148,29 @@ $(function () {
                                         "<ul>" +
                                             "<li>Report Type: " + this.ReportType + "</li>" +
                                             "<li>Message: " + this.Message + "</li>" +
-                                            "<li>Date Reported: " + tst + "</li>" +
+                                            "<li>Date Reported: " + tst.toLocaleString() + "</li>" +
                                             "<li>Gender: " + this.User.Gender + "</li>" +
                                             "<li>Email: " + this.User.Email + "</li>" +
                                             "<li>Phone Number: " + this.User.PhoneNumber + "</li>" +
                                             "<li>Address: " + this.User.Address + "</li>" +
                                             "<li>Zip Code: " + this.User.ZipCode + "</li>" +
                                             "<li>Current Location: " + marker.getPosition().toString() + "</li>" +
+                                            "<li>Location: " + this.Location + "</li>" +
                                         "</ul>" +
                                   "</div>";
 
-	                if (this.ResourceUrl != "") {
-	                    content += "<a data-pictureurl='" + this.ResourceUrl
-                            + "' href='#'>View Uploaded Picture</a>";
-	                }
+	                if (this.UrlList.length != 0) {
+	                    content += "<a class='viewUploadedMedia' href='#'>View Uploaded Media</a>";
 
+	                    for (var i in this.UrlList) {
+	                        content += "<input type='hidden' data-mediaUrl='" + this.UrlList[i] + "' />";
+	                    }
+	                }
 	                $.attachInfo(map, content, marker);
 	            });
 	        },
-	        error: function () {
-	            alert("error");
+	        error: function (xhr, textStatus, errorThrown) {
+	            alert("Error: " + errorThrown);
 	        }
 	    });
 	};
@@ -117,5 +186,259 @@ $(function () {
 	        marker.setAnimation(null);
 	    });
 	};
+
+    $.updateMapClientSide = function(map, reportType) {
+        switch (reportType) {
+            case "high":
+                $.showMarkers(map, hiMarkers);
+                $.clearMarkers(loMarkers);
+                break;
+            case "low":
+                $.showMarkers(map, loMarkers);
+                $.clearMarkers(hiMarkers);
+                break;
+            default:
+                $.showMarkers(map, hiMarkers);
+                $.showMarkers(map, loMarkers);
+                break;
+        }
+    };
+
+    $.showMarkers = function(map, markers) {
+        for (var i in markers) {
+            markers[i].setMap(map);
+        }
+    };
+
+    $.clearMarkers = function(markers) {
+        for (var i in markers) {
+            markers[i].setMap(null);
+        }
+    };
+
+    $.logOffUser = function () {
+	    $.ajax({
+	        type: "POST",
+	        dataType: "json",
+	        timeout: 10000,
+	        contentType: "application/json",
+	        url: "../Services/Login.asmx/LogOutUser",
+	        success: function (data) {
+	            window.location.href = 'Login.aspx';
+	        },
+	        error: function () {
+	            alert("Unable to communicate with the server. Please try again.");
+	        }
+	    });
+    };
+
+    $.showReports = function(pageNumber) {
+        $("#reportsDashboard").children().remove();
+        $("#reportsDashboard").append(
+            "<table>" +
+            "<thead><tr>" +
+            "<th scope='col'>User</th>" +
+            "<th scope='col'>Report Type</th>" +
+            "<th scope='col'>Message</th>" +
+            "<th scope='col'>Gender</th>" +
+            "<th scope='col'>Email</th>" +
+            "<th scope='col'>Phone Number</th>" +
+            "<th scope='col'>Address</th>" +
+            "<th scope='col'>Zip Code</th>" +
+            "<th scope='col'>Coordinates</th>" +
+            "<th scope='col'>Location</th>" +
+            "<th scope='col'>Date Reported</th>" +
+            "</tr></thead><tbody>");
+
+        for (var i = (pageNumber - 1) * 10; i < pageNumber * 10; i++) {
+            var subReport = reports[i];
+
+            if (subReport == null) {
+                break;
+            }
+            // Shows the local time in the browser.
+            // workaround for Safari
+            var s = (subReport.TimeStampString + "Z").split(/[^0-9]/);
+            var tst = new Date(s[2], s[0] - 1, s[1], s[3], s[4], s[5], 0);
+            var offset = -((new Date()).getTimezoneOffset() / 60);
+            tst.setHours(tst.getHours() + offset);
+
+            var noLocMediaUrls = "";
+            if (isNaN(parseFloat(subReport.Latitude)) && subReport.UrlList.length != 0) {
+                for (var j in subReport.UrlList) {
+                    noLocMediaUrls += "<input type='hidden' data-mediaUrl='" + subReport.UrlList[j] + "' />";
+                }
+            }
+
+            $("#reportsDashboard tbody").append(
+                "<tr data-reportId='" + subReport.ReportId + "' data-reportType='" + subReport.ReportType +
+                    "' data-markerId='" + i + "' data-hasCoordinates='" + (isNaN(parseFloat(subReport.Latitude)) ? 0 : 1) + "'><td>" +
+                subReport.User.LastName + ", " + subReport.User.FirstName + "</td><td>" +
+                subReport.ReportType + "</td><td>" +
+                subReport.Message + "</td><td>" +
+                subReport.User.Gender + "</td><td>" +
+                subReport.User.Email + "</td><td>" +
+                subReport.User.PhoneNumber + "</td><td>" +
+                subReport.User.Address + "</td><td>" +
+                subReport.User.ZipCode + "</td><td>" +
+                subReport.Latitude + "," + subReport.Longitude + "</td><td>" +
+                subReport.Location + "</td><td>" +
+                tst.toLocaleString() + noLocMediaUrls + "</td></tr>");
+        }
+
+        $("#reportsDashboard").append("</tbody></table>");
+        $.addPagination(reports.length, 10, "#reportsDashboard");
+
+        $("#reportsDashboard").dialog({
+            modal: true,
+            title: "Reports",
+            show: "blind",
+            hide: "clip",
+            width: 1200
+        });
+    };
+
+    $.showUploadedMedia = function (mediaListUrl) {
+        $("#uploadedMediaWindow").children().remove();
+        $("#uploadedMediaWindow").append("<ul class='uploadedMedia'>");
+        $.each(mediaListUrl, function () {
+            var mediaUrl = $(this).attr("data-mediaUrl");
+            if ($.isImage(mediaUrl)) {
+                $("ul.uploadedMedia", "#uploadedMediaWindow").append(
+                    "<li><img src='" + mediaUrl.substr(2) + "' alt='Uploaded Image' height='400' width='300' /></li>");
+            } else if ($.isVideo(mediaUrl)) {
+                $("ul.uploadedMedia", "#uploadedMediaWindow").append(
+                    "<video width='320' height='240' controls>" +
+                        "<source src='" + mediaUrl.substr(2) + "' type='video/mp4'>" +
+                        "<source src='" + mediaUrl.substr(2) + "' type='video/ogg'>" +
+                        "<source src='" + mediaUrl.substr(2) + "' type='video/webm'>" +
+                        "Your browser does not support the video tag.</video>"
+	            );
+            } else if ($.isAudio(mediaUrl)) {
+                //$("ul.uploadedMedia", "#uploadedMediaWindow").append(
+                //    "<audio controls>" + 
+                //        "<source src='" + mediaUrl.substr(2) + "' type='audio/mpeg'>" +
+                //        "<source src='" + mediaUrl.substr(2) + "' type='audio/wav'>" +
+                //        "Your browser does not support the audio tag.</audio>"
+                //);
+                $("ul.uploadedMedia", "#uploadedMediaWindow").append("<a data-fileUrl='~/" + mediaUrl.substr(2) + "' href='#' >Download Audio File</a>");
+            }
+        });
+
+        $("#uploadedMediaWindow").append("</ul>");
+
+        $("#uploadedMediaWindow").dialog({
+            title: "Uploaded Media",
+            show: "fade",
+            hide: "clip",
+            modal: true,
+            width: "402px",
+            minheight: "500px"
+        });
+    }
+
+    $.addPagination = function (total, maxRows, domToAppend) {
+        var totalPage;
+        if (parseInt(total) % parseInt(maxRows) != 0) {
+            totalPage = parseInt(parseInt(total) / parseInt(maxRows)) + 1;
+        } else {
+            totalPage = parseInt(parseInt(total) / parseInt(maxRows));
+        }
+
+        if (totalPage > 1) { 
+            $("<ul class='paging'></ul>").appendTo(domToAppend);
+            for (var i = 0; i < totalPage; i++) {
+                $("ul.paging", domToAppend).append("<li><a href='#' data-startRowIndex='" + (i * parseInt(maxRows)) + "'>" + (i + 1) + "</a></li>");
+            }
+        }
+    };
+
+    $.zoomMap = function(map, lat, lng) {
+        var location = new google.maps.LatLng(lat, lng);
+        map.setCenter(location);
+        map.setZoom(4);
+    };
+
+    $.zoomUser = function (map, markerId, reportType) {
+        if (reportType == "HIGH") {
+            var userIndex = $.binarySearch(hiMarkers, markerId, 0, hiMarkers.length - 1);
+
+            if (userIndex != -1) {
+                var loc = hiMarkers[userIndex].getPosition();
+                map.setCenter(loc);
+                map.setZoom(18);
+
+                google.maps.event.trigger(hiMarkers[userIndex], "click");
+                return;
+            }
+        }
+
+        var userIndex = $.binarySearch(loMarkers, markerId, 0, loMarkers.length - 1);
+        if (userIndex != -1) {
+            var location = loMarkers[userIndex].getPosition();
+            map.setCenter(location);
+            map.setZoom(18);
+
+            google.maps.event.trigger(loMarkers[userIndex], 'click'); 
+            return;
+        }
+    };
+
+    $.binarySearch = function (markers, key, imin, imax) {
+        if (imax < imin) {
+            return -1;
+        } else {
+            var imid = $.midpoint(imin, imax);
+
+            var 
+            deleteThis = markers[imid].markerId;
+
+            if (markers[imid].markerId > key) {
+                return $.binarySearch(markers, key, imin, imid - 1);
+            } else if (markers[imid].markerId < key) {
+                return $.binarySearch(markers, key, imid + 1, imax);
+            } else {
+                return imid;
+            }
+        }
+    };
+
+    $.midpoint = function(imin, imax) {
+        return imin + parseInt(parseInt(imax - imin) / 2);
+    };
+
+    $.isImage = function(imageUrl) {
+        if (imageUrl.indexOf(".gif") > 0 || 
+            imageUrl.indexOf(".png") > 0 ||
+            imageUrl.indexOf(".jpg") > 0 ||
+            imageUrl.indexOf(".jpeg") > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    $.isVideo = function (videoUrl) {
+        if (videoUrl.indexOf(".mp4") > 0 ||
+            videoUrl.indexOf(".avi") > 0 ||
+            videoUrl.indexOf(".ogv") > 0 ||
+            videoUrl.indexOf(".webm") > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    $.isAudio = function (audioUrl) {
+        if (audioUrl.indexOf(".mp3") > 0 ||
+            audioUrl.indexOf(".wav") > 0 ||
+            audioUrl.indexOf(".3gp") > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 })(jQuery);
+
+
 

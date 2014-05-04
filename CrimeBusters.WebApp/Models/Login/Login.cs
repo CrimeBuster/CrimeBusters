@@ -1,12 +1,7 @@
 ﻿using System.IO;
-using System.Net;
-using System.Runtime.Remoting.Channels;
 using CrimeBusters.WebApp.Models.DAL;
 using CrimeBusters.WebApp.Models.Users;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Security;
 using CrimeBusters.WebApp.Models.Util;
 
@@ -33,6 +28,11 @@ namespace CrimeBusters.WebApp.Models.Login
         /// <returns></returns>
         public MembershipCreateStatus CreateUser(IContentLocator contentLocator)
         {
+            if (String.IsNullOrEmpty(this.User.Email))
+            {
+                return MembershipCreateStatus.InvalidEmail;
+            }
+
             MembershipCreateStatus createStatus;
 
             MembershipUser newUser = Membership.CreateUser(
@@ -53,7 +53,7 @@ namespace CrimeBusters.WebApp.Models.Login
                     SendVerificationEmail(newUser.ProviderUserKey.ToString(), contentLocator);
                 }
                 catch (Exception)
-                {
+                {                    
                     return MembershipCreateStatus.UserRejected;
                 }
             }

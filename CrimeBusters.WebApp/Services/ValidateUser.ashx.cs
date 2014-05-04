@@ -13,6 +13,9 @@ namespace CrimeBusters.WebApp.Services
     /// </summary>
     public class ValidateUser : IHttpHandler
     {
+        /// <summary>
+        /// Summary description for ValidateUser
+        /// </summary>
         public void ProcessRequest(HttpContext context)
         {
             HttpRequest request = context.Request;

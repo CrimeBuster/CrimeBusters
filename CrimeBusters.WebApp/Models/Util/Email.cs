@@ -27,10 +27,11 @@ namespace CrimeBusters.WebApp.Models.Util
         /// <returns>returns "success" if successful.</returns>
         public string SendEmail()
         {
-            MailMessage message = CreateMessage();
-            SmtpClient smtpClient = SetSmtpCredentials();
             try
             {
+                MailMessage message = CreateMessage();
+                SmtpClient smtpClient = SetSmtpCredentials();
+
                 smtpClient.Send(message);
                 return "success";
             }
