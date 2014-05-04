@@ -137,6 +137,9 @@ namespace CrimeBusters.WebApp.Services
             }
         }
 
+        /// <summary>
+        /// PostReport Resusable Property for class, always returns false
+        /// </summary>
         public bool IsReusable
         {
             get

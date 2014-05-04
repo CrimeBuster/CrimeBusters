@@ -315,12 +315,6 @@ $(function () {
                         "Your browser does not support the video tag.</video>"
 	            );
             } else if ($.isAudio(mediaUrl)) {
-                //$("ul.uploadedMedia", "#uploadedMediaWindow").append(
-                //    "<audio controls>" + 
-                //        "<source src='" + mediaUrl.substr(2) + "' type='audio/mpeg'>" +
-                //        "<source src='" + mediaUrl.substr(2) + "' type='audio/wav'>" +
-                //        "Your browser does not support the audio tag.</audio>"
-                //);
                 $("ul.uploadedMedia", "#uploadedMediaWindow").append("<a data-fileUrl='~/" + mediaUrl.substr(2) + "' href='#' >Download Audio File</a>");
             }
         });

@@ -45,6 +45,9 @@ namespace CrimeBusters.WebApp.Services
             }
         }
 
+        /// <summary>
+        /// DeleteUser Resusable Property for class, always returns false
+        /// </summary>
         public bool IsReusable
         {
             get

@@ -26,6 +26,9 @@ namespace CrimeBusters.WebApp.Services
             context.Response.End();
         }
 
+        /// <summary>
+        /// DownloadFile Resusable Property for class, always returns false
+        /// </summary>
         public bool IsReusable
         {
             get

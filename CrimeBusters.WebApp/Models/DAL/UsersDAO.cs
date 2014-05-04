@@ -10,6 +10,9 @@ namespace CrimeBusters.WebApp.Models.DAL
     /// </summary>
     public class UsersDAO
     {
+        /// <summary>
+        /// Get User Information given the userName
+        /// </summary>
         public static SqlDataReader GetUserInformation(String userName) {
             SqlConnection connection = ConnectionManager.GetConnection();
             SqlCommand command = new SqlCommand("GetUserInformation", connection)
@@ -21,6 +24,16 @@ namespace CrimeBusters.WebApp.Models.DAL
             return command.ExecuteReader(CommandBehavior.SingleResult | CommandBehavior.CloseConnection);
         }
 
+        /// <summary>
+        /// Updated User Information
+        /// String firstName : First Name
+        /// String lastName : Last Name
+        /// String gender : Gender
+        /// String phoneNumber : Phone Number
+        /// String address  : Address
+        /// String zipCode :  Zip code
+        /// String userName : User Name
+        /// </summary>
         public static void UpdateUserInformation(String firstName, String lastName, String gender, 
             String phoneNumber, String address, String zipCode, String userName)
         {
