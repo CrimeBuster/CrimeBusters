@@ -112,3 +112,8 @@ UpgradeLog*.XML
 
 #uploaded files
 CrimeBusters.WebApp/Content/uploads
+
+*.pubxml
+*.pubxml
+CrimeBusters.WebApp/Properties/PublishProfiles/Arvixe.pubxml
+CrimeBusters.WebApp/Properties/PublishProfiles/Arvixe.pubxml

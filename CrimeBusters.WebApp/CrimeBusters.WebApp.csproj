@@ -73,6 +73,7 @@
     <Content Include="Services\DeleteUser.ashx" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Services\DownloadFile.ashx" />
+    <None Include="Properties\PublishProfiles\ManualUpload.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
