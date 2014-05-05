@@ -108,8 +108,12 @@ Backup*/
 UpgradeLog*.XML
 
 # Web configuration files
-*app.config
+
 
 #uploaded files
 CrimeBusters.WebApp/Content/uploads
-CrimeBusters.WebApp/*.config
+
+*.pubxml
+*.pubxml
+CrimeBusters.WebApp/Properties/PublishProfiles/Arvixe.pubxml
+CrimeBusters.WebApp/Properties/PublishProfiles/Arvixe.pubxml

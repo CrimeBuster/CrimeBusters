@@ -1,13 +1,10 @@
-﻿using System.IO;
-using System.Web.UI.WebControls;
-using CrimeBusters.WebApp.Models.DAL;
+﻿using CrimeBusters.WebApp.Models.DAL;
 using CrimeBusters.WebApp.Models.Documents;
 using CrimeBusters.WebApp.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using CrimeBusters.WebApp.Models.Util;
 
 namespace CrimeBusters.WebApp.Models.Report
