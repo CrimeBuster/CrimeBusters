@@ -5,6 +5,10 @@ namespace CrimeBusters.WebApp.Models.DAL
 {
     public class LoginDAO
     {
+        /// <summary>
+        /// Creates User Details given username, firstName, lastName and email
+        /// for Android account creation
+        /// </summary>
         public static void CreateUserDetails(string userName, string firstName, 
             string lastName, string email)
         {
@@ -21,6 +25,9 @@ namespace CrimeBusters.WebApp.Models.DAL
             }
         }
 
+        /// <summary>
+        /// Delete User Details given username
+        /// </summary>
         public static void DeleteUser(string userName)
         {
             using (SqlConnection connection = ConnectionManager.GetConnection())

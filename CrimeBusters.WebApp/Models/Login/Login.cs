@@ -12,10 +12,19 @@ namespace CrimeBusters.WebApp.Models.Login
     /// </summary>
     public class Login
     {
+        /// <summary>
+        /// Login User
+        /// </summary>
         public IUser User { get; set; }
 
+        /// <summary>
+        /// Empty Contstructor
+        /// </summary>
         public Login() { }
 
+        /// <summary>
+        /// Constructor for creating a Login given a user
+        /// </summary>
         public Login(IUser user)
         {
             this.User = user;

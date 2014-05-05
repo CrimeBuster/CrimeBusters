@@ -9,6 +9,9 @@ namespace CrimeBusters.WebApp.Models.Util
 {
     public class WebContentLocator : IContentLocator
     {
+        /// <summary>
+        /// Return the path on the server given the relative path for the content
+        /// </summary>
         public string GetPath(string relativePath)
         {
             return HttpContext.Current.Server.MapPath(relativePath);
@@ -18,11 +21,18 @@ namespace CrimeBusters.WebApp.Models.Util
     public class TestContentLocator : IContentLocator
     {
         string _contentRoot;
+
+        /// <summary>
+        /// Constructor for Test Content Locator, initialize the content's root
+        /// </summary>
         public TestContentLocator()
         {
             _contentRoot = ConfigurationManager.AppSettings["ContentRoot"];
         }
 
+        /// <summary>
+        /// Return the path formatted given the relative path
+        /// </summary>
         public string GetPath(string relativePath)
         {
             return Path.Combine(_contentRoot, relativePath.Replace("~/", String.Empty));

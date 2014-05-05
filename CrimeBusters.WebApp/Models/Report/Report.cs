@@ -17,9 +17,20 @@ namespace CrimeBusters.WebApp.Models.Report
         private String _reportType;
         private List<IDocument> _media = new List<IDocument>();
         private List<String> _urlList = new List<string>();
- 
+
+        /// <summary>
+        /// Reported Id property
+        /// </summary>
         public int ReportId { get; set; }
+
+        /// <summary>
+        /// ReportTypeId property
+        /// </summary>
         public ReportTypeEnum ReportTypeId { get; set; }
+
+        /// <summary>
+        /// ReportType property validates and returns report type
+        /// </summary>
         public String ReportType 
         {
             get 
@@ -35,12 +46,40 @@ namespace CrimeBusters.WebApp.Models.Report
                 _reportType = value;
             }
         }
+
+        /// <summary>
+        /// MarkerImage property
+        /// </summary>
         public String MarkerImage { get; set; }
+
+        /// <summary>
+        /// Message property
+        /// </summary>
         public String Message { get; set; }
+
+        /// <summary>
+        /// Latitude property
+        /// </summary>
         public String Latitude { get; set; }
+
+        /// <summary>
+        /// Longitude property
+        /// </summary>
         public String Longitude { get; set; }
+
+        /// <summary>
+        /// Location property
+        /// </summary>
         public String Location { get; set; }
+
+        /// <summary>
+        /// Date Reported property
+        /// </summary>
         public DateTime DateReported { get; set; }
+
+        /// <summary>
+        /// TimeStampString property returns converted time 
+        /// </summary>
         public string TimeStampString
         {
             get
@@ -49,11 +88,23 @@ namespace CrimeBusters.WebApp.Models.Report
                             System.Globalization.CultureInfo.InvariantCulture);
             }
         }
+
+        /// <summary>
+        /// User property user property for report
+        /// </summary>
         public IUser User { get; set; }
+
+        /// <summary>
+        /// Media Property returns all media for report
+        /// </summary>
         public List<IDocument> Media 
         {
             get { return _media; }
         }
+
+        /// <summary>
+        /// UrlList Property returns urlList for report
+        /// </summary>
         public List<String> UrlList
         {
             get { return _urlList; }
@@ -64,11 +115,23 @@ namespace CrimeBusters.WebApp.Models.Report
         /// Since we only need the MediaUrl when we retrieve the values in the database, 
         /// </summary>
         public List<String> MediaUrl { get; set; }
+
+        /// <summary>
+        /// Report Constructor
+        /// </summary>
         public Report() { }
+
+        /// <summary>
+        /// Report Constructor given the report Id
+        /// </summary>
         public Report(int reportId) 
         {
             this.ReportId = reportId;
         }
+
+        /// <summary>
+        /// Report Constructor given type id, message, latitude, longitude, dateReported, and user
+        /// </summary>
         public Report(ReportTypeEnum reportTypeId, String message, 
             String latitude, String longitude, String location,
             DateTime dateReported, IUser user) 
@@ -208,6 +271,10 @@ namespace CrimeBusters.WebApp.Models.Report
             _media.Add(document);
         }
 
+        /// <summary>
+        /// Adds a URL to the list of URLs in the report.
+        /// </summary>
+        /// <param name="url">url to be added to the list.</param>
         public void AddUrlList(String url)
         {
             _urlList.Add(url);

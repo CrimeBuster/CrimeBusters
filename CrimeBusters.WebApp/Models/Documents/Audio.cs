@@ -7,9 +7,19 @@ namespace CrimeBusters.WebApp.Models.Documents
 {
     public class Audio : IDocument
     {
+        /// <summary>
+        /// Property for the Audio File
+        /// </summary>
         public HttpPostedFile File { get; set; }
+        
+        /// <summary>
+        /// Property for the URL of the File
+        /// </summary>
         public string Url { get; set; }
 
+        /// <summary>
+        /// Check if the file extension is valid
+        /// </summary>
         public bool IsValidFile
         {
             get

@@ -26,6 +26,9 @@ namespace CrimeBusters.WebApp.Services
             context.Response.ContentType = "application/json";
         }
 
+        /// <summary>
+        /// GetUserInfo Resusable Property for class, always returns false
+        /// </summary>
         public bool IsReusable
         {
             get

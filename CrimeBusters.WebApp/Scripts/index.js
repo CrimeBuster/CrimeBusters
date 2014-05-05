@@ -7,12 +7,14 @@ $(function () {
 	var map = $.getMap();
 	$.plotUsersOnMap(map);
 
+    //shows the uploaded media sent from Android
 	$(document).on("click", "a.viewUploadedMedia", function (e) {
 	    e.preventDefault();
 	    var mediaListUrl = $(this).nextAll("input[data-mediaUrl]:hidden");
 	    $.showUploadedMedia(mediaListUrl);
 	});
 
+    //downloades file to client
     $(document).on("click", "a[data-fileUrl]", function(e) {
         e.preventDefault();
 
@@ -20,29 +22,34 @@ $(function () {
             + encodeURIComponent($(this).attr("data-fileUrl"));
     });
 
+    //changes report types shown (ALL, HI, Lo)
 	$("a[data-reporttype]", "ul.dropdown-menu").on("click", function(e) {
 	    e.preventDefault();
 	    var reportType = $(this).attr("data-reporttype");
         $.updateMapClientSide(map, reportType);
     });
 
+    //signs out of application
 	$("#signOut").on("click", function (e) {
 	    e.preventDefault();
 	    $.logOffUser();
 	});
 
+    //shows reports on dashboard once option picked
     $("a#showReports").on("click", function(e) {
         e.preventDefault();
 
         $.showReports(1);
     });
 
+    //shows correct reports per page
     $(document).on("click", "#reportsDashboard .paging li a", function (e) {
         e.preventDefault();
 
         $.showReports(parseInt($(this).html()));
     });
 
+    //functionality for choosing a report on dashboard that takes user to icon on map
     $(document).on("click", "#reportsDashboard tr", function () {
         var $tr = $(this);
 
@@ -76,7 +83,8 @@ $(function () {
     });
 });
 
-(function($) {
+(function ($) {
+    //get map for google maps
 	$.getMap = function() {
 		var mapOptions = {
 				zoom: 15,
@@ -87,6 +95,7 @@ $(function () {
 		return new google.maps.Map($("#map").get(0), mapOptions);
 	};
 	
+    //plot all reports on map
 	$.plotUsersOnMap = function (map) {
 	    var coords = [];
 	    var location;
@@ -187,6 +196,7 @@ $(function () {
 	    });
 	};
 
+    //show lo,hi, or all markers depending on chosen report type
     $.updateMapClientSide = function(map, reportType) {
         switch (reportType) {
             case "high":
@@ -204,18 +214,21 @@ $(function () {
         }
     };
 
+    //sets markers to show on the map
     $.showMarkers = function(map, markers) {
         for (var i in markers) {
             markers[i].setMap(map);
         }
     };
 
+    //clears markers on the map
     $.clearMarkers = function(markers) {
         for (var i in markers) {
             markers[i].setMap(null);
         }
     };
 
+    //log off user from application
     $.logOffUser = function () {
 	    $.ajax({
 	        type: "POST",
@@ -232,6 +245,7 @@ $(function () {
 	    });
     };
 
+    //show reports on dashboard given the page number
     $.showReports = function(pageNumber) {
         $("#reportsDashboard").children().remove();
         $("#reportsDashboard").append(
@@ -298,6 +312,7 @@ $(function () {
         });
     };
 
+    //show media thats been uploaded given the URL
     $.showUploadedMedia = function (mediaListUrl) {
         $("#uploadedMediaWindow").children().remove();
         $("#uploadedMediaWindow").append("<ul class='uploadedMedia'>");
@@ -315,12 +330,6 @@ $(function () {
                         "Your browser does not support the video tag.</video>"
 	            );
             } else if ($.isAudio(mediaUrl)) {
-                //$("ul.uploadedMedia", "#uploadedMediaWindow").append(
-                //    "<audio controls>" + 
-                //        "<source src='" + mediaUrl.substr(2) + "' type='audio/mpeg'>" +
-                //        "<source src='" + mediaUrl.substr(2) + "' type='audio/wav'>" +
-                //        "Your browser does not support the audio tag.</audio>"
-                //);
                 $("ul.uploadedMedia", "#uploadedMediaWindow").append("<a data-fileUrl='~/" + mediaUrl.substr(2) + "' href='#' >Download Audio File</a>");
             }
         });
@@ -337,6 +346,7 @@ $(function () {
         });
     }
 
+    //add pages to the report dashboard
     $.addPagination = function (total, maxRows, domToAppend) {
         var totalPage;
         if (parseInt(total) % parseInt(maxRows) != 0) {
@@ -353,6 +363,7 @@ $(function () {
         }
     };
 
+    //zoom to map location of the icon of the report
     $.zoomMap = function(map, lat, lng) {
         var location = new google.maps.LatLng(lat, lng);
         map.setCenter(location);

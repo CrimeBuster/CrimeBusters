@@ -33,6 +33,9 @@ namespace CrimeBusters.WebApp.Services
             response.ContentType = "application/json";
         }
 
+        /// <summary>
+        /// ValidateUser Resusable Property for class, always returns false
+        /// </summary>
         public bool IsReusable
         {
             get

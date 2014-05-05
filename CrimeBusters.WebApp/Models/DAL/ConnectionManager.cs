@@ -5,6 +5,9 @@ namespace CrimeBusters.WebApp.Models.DAL
 {
     public class ConnectionManager
     {
+        /// <summary>
+        /// Opens and Returns the SQL Database Connection as configured on server
+        /// </summary>
         public static SqlConnection GetConnection()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["cbConnection"].ConnectionString;

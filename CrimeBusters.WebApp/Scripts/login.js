@@ -31,7 +31,9 @@
     });
 });
 
-(function($) {
+(function ($) {
+
+    //validation of user login given the username, password, and if they want be remembered
     $.validateUser = function (userName, password, rememberMe) {
         $.ajax({
             type: "POST",
