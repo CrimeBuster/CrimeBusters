@@ -12,6 +12,9 @@ namespace CrimeBusters.WebApp.Services
     /// </summary>
     public class GetUserInfo : IHttpHandler
     {
+        /// <summary>
+        /// Process Request given HTTP context to get user info and return a response with their properties
+        /// </summary>
         public void ProcessRequest(HttpContext context)
         {
             String userName = context.Request.QueryString["userName"];
@@ -23,6 +26,9 @@ namespace CrimeBusters.WebApp.Services
             context.Response.ContentType = "application/json";
         }
 
+        /// <summary>
+        /// GetUserInfo Resusable Property for class, always returns false
+        /// </summary>
         public bool IsReusable
         {
             get

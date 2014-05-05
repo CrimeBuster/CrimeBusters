@@ -1,4 +1,5 @@
-﻿using CrimeBusters.WebApp.Models.Report;
+﻿using System.Collections.Generic;
+using CrimeBusters.WebApp.Models.Report;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,9 +11,20 @@ namespace CrimeBusters.WebApp.Models.DAL
     /// </summary>
     public class ReportsDAO
     {
+        /// <summary>
+        /// Creates Report given the 
+        /// ReportTypeEnum reportTypeId : Report Type
+        /// String message : Report Message 
+        /// String latitude : Latitude coordinate of crime reported
+        /// String longitude : Longitude coordinate of crime reported
+        /// String location :  Location of crime reported
+        /// DateTime dateReported : Time crime reported
+        /// String userName : Username of account that submitted reported
+        /// List<String> resourceUrlList :  URL location list of media    
+        /// </summary>
         public static void CreateReport(ReportTypeEnum reportTypeId, String message, 
-            String latitude, String longitude, string resourceUrl, DateTime dateReported,
-            String userName) 
+            String latitude, String longitude, String location, DateTime dateReported,
+            String userName, List<String> resourceUrlList) 
         { 
             using (SqlConnection connection = ConnectionManager.GetConnection()) 
             {
@@ -22,14 +34,23 @@ namespace CrimeBusters.WebApp.Models.DAL
                 command.Parameters.AddWithValue("@Message", message);
                 command.Parameters.AddWithValue("@Latitude", latitude);
                 command.Parameters.AddWithValue("@Longitude", longitude);
-                command.Parameters.AddWithValue("@ResourceUrl", resourceUrl);
+                command.Parameters.AddWithValue("@Location", location);
                 command.Parameters.AddWithValue("@DateReported", dateReported);
                 command.Parameters.AddWithValue("@UserName", userName);
-
+                
+                for (int i = 1; i <= resourceUrlList.Count; i++)
+                {
+                    command.Parameters.AddWithValue("@Media" + i, resourceUrlList[i - 1]);
+                }
+ 
                 command.ExecuteNonQuery();
             }
         }
 
+        /// <summary>
+        /// Gets Reports by initiating the execution of stored procedure on database 
+        /// returning a SqlDataReader
+        /// </summary>
         public static SqlDataReader GetReports()
         {
             SqlConnection connection = ConnectionManager.GetConnection();
@@ -39,6 +60,9 @@ namespace CrimeBusters.WebApp.Models.DAL
             return command.ExecuteReader(CommandBehavior.SingleResult | CommandBehavior.CloseConnection);
         }
 
+        /// <summary>
+        /// Delete Reports by initiating the execution of stored procedure on database 
+        /// </summary>
         public static void DeleteReport(int reportId)
         {
             using (SqlConnection connection = ConnectionManager.GetConnection())
@@ -51,6 +75,9 @@ namespace CrimeBusters.WebApp.Models.DAL
             }
         }
 
+        /// <summary>
+        /// Delete Report Test by initiating the execution of stored procedure on database 
+        /// </summary>
         public static void DeleteReportTest()
         {
             using (SqlConnection connection = ConnectionManager.GetConnection())

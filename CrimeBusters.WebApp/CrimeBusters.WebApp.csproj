@@ -57,13 +57,23 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\documents\VerifyAccount.html" />
+    <Content Include="Content\images\hi.png" />
+    <Content Include="Content\images\lo.png" />
     <Content Include="Content\images\quad.jpg" />
-    <Content Include="Content\login.css" />
     <Content Include="Content\uploads\testImage.JPG" />
+    <Content Include="Index.aspx" />
+    <Content Include="Login.aspx" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Services\CreateUser.ashx" />
+    <Content Include="Services\Login.asmx" />
     <Content Include="Services\ValidateUser.ashx" />
     <Content Include="Services\UpdateProfile.ashx" />
+    <Content Include="Services\DeleteUser.ashx" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Services\DownloadFile.ashx" />
+    <None Include="Properties\PublishProfiles\ManualUpload.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -86,34 +96,45 @@
     <Content Include="Content\themes\illinoisTheme\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
     <Content Include="Content\themes\illinoisTheme\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
     <Content Include="Content\themes\illinoisTheme\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\illinoisTheme\images\ui-icons_228ef1_256x240.png" />
     <Content Include="Content\themes\illinoisTheme\images\ui-icons_ef8c08_256x240.png" />
     <Content Include="Content\themes\illinoisTheme\images\ui-icons_ffd27a_256x240.png" />
     <Content Include="Content\themes\illinoisTheme\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\themes\illinoisTheme\jquery-ui-1.10.4.custom.css" />
     <Content Include="Content\themes\illinoisTheme\jquery-ui-1.10.4.custom.min.css" />
-    <Content Include="Index.html" />
-    <Content Include="Login.html" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\Arvixe.pubxml" />
-    <Content Include="ReportsDump.aspx" />
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Services\Index.asmx" />
-    <Content Include="TestPage.aspx" />
     <Content Include="VerifyAccount.aspx" />
     <Content Include="Web.config" />
     <Content Include="Services\PostReport.ashx" />
     <Content Include="Services\GetUserInfo.ashx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Models\DAL\ConnectionManager.cs" />
     <Compile Include="Models\DAL\LoginDAO.cs" />
+    <Compile Include="Models\Documents\Audio.cs" />
     <Compile Include="Models\Documents\IDocument.cs" />
     <Compile Include="Models\Documents\Photo.cs" />
+    <Compile Include="Models\Documents\Video.cs" />
     <Compile Include="Models\Login\Login.cs" />
     <Compile Include="Models\Users\IUser.cs" />
     <Compile Include="Models\DAL\ReportsDAO.cs" />
@@ -124,21 +145,24 @@
     <Compile Include="Models\Util\Email.cs" />
     <Compile Include="Models\Util\ContentLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReportsDump.aspx.cs">
-      <DependentUpon>ReportsDump.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ReportsDump.aspx.designer.cs">
-      <DependentUpon>ReportsDump.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Services\CreateUser.ashx.cs">
       <DependentUpon>CreateUser.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\DeleteUser.ashx.cs">
+      <DependentUpon>DeleteUser.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\DownloadFile.ashx.cs">
+      <DependentUpon>DownloadFile.ashx</DependentUpon>
     </Compile>
     <Compile Include="Services\GetUserInfo.ashx.cs">
       <DependentUpon>GetUserInfo.ashx</DependentUpon>
     </Compile>
     <Compile Include="Services\Index.asmx.cs">
       <DependentUpon>Index.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\Login.asmx.cs">
+      <DependentUpon>Login.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Services\PostReport.ashx.cs">
@@ -149,13 +173,6 @@
     </Compile>
     <Compile Include="Services\ValidateUser.ashx.cs">
       <DependentUpon>ValidateUser.ashx</DependentUpon>
-    </Compile>
-    <Compile Include="TestPage.aspx.cs">
-      <DependentUpon>TestPage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TestPage.aspx.designer.cs">
-      <DependentUpon>TestPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="VerifyAccount.aspx.cs">
       <DependentUpon>VerifyAccount.aspx</DependentUpon>

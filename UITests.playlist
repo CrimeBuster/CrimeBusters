@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="CrimeBusters.WebApp.Tests.CodedUITest1.CodedUITestMethod1" /><Add Test="CrimeBusters.WebApp.Tests.CrimeBusterUiTest.IndexUiTest" /><Add Test="CrimeBusters.WebApp.Tests.CrimeBusterUiTest.MainUiTest" /><Add Test="CrimeBusters.WebApp.Tests.CrimeBusterUiTest.MenuUiTest" /></Playlist>
